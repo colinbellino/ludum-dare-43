@@ -7,17 +7,14 @@ using ModestTree;
 using UnityEngine;
 using Zenject.Internal;
 
-#if UNITY_EDITOR
-#endif
-
 namespace Zenject
 {
     public class ProjectContext : Context
     {
-        public event Action PreInstall;
-        public event Action PostInstall;
-        public event Action PreResolve;
-        public event Action PostResolve;
+        public static event Action PreInstall;
+        public static event Action PostInstall;
+        public static event Action PreResolve;
+        public static event Action PostResolve;
 
         public const string ProjectContextResourcePath = "ProjectContext";
         public const string ProjectContextResourcePathOld = "ProjectCompositionRoot";
@@ -30,13 +27,13 @@ namespace Zenject
         bool _parentNewObjectsUnderContext = true;
 
         [SerializeField]
-        ReflectionBakingCoverageModes _editorReflectionBakingCoverageMode;
+        ReflectionBakingCoverageModes _editorReflectionBakingCoverageMode = ReflectionBakingCoverageModes.FallbackToDirectReflection;
 
         [SerializeField]
-        ReflectionBakingCoverageModes _buildsReflectionBakingCoverageMode;
+        ReflectionBakingCoverageModes _buildsReflectionBakingCoverageMode = ReflectionBakingCoverageModes.FallbackToDirectReflection;
 
         [SerializeField]
-        ZenjectSettings _settings;
+        ZenjectSettings _settings = null;
 
         DiContainer _container;
 
@@ -64,13 +61,11 @@ namespace Zenject
             }
         }
 
-#if UNITY_EDITOR
         public static bool ValidateOnNextRun
         {
             get;
             set;
         }
-#endif
 
         public override IEnumerable<GameObject> GetRootGameObjects()
         {
@@ -211,14 +206,10 @@ namespace Zenject
                 TypeAnalyzer.ReflectionBakingCoverageMode = _buildsReflectionBakingCoverageMode;
             }
 
-            bool isValidating = false;
-
-#if UNITY_EDITOR
-            isValidating = ValidateOnNextRun;
+            var isValidating = ValidateOnNextRun;
 
             // Reset immediately to ensure it doesn't get used in another run
             ValidateOnNextRun = false;
-#endif
 
             _container = new DiContainer(
                 new[] { StaticContext.Container }, isValidating);
@@ -297,7 +288,9 @@ namespace Zenject
             _container.Bind<SceneContextRegistry>().AsSingle();
 
             InstallSceneBindings(injectableMonoBehaviours);
+
             InstallInstallers();
+
         }
     }
 }
