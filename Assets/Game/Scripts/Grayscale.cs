@@ -1,16 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
-using Zenject;
+using UnityEngine.Rendering.Universal;
 
 public class Grayscale : MonoBehaviour
 {
-	[SerializeField]
-	private PostProcessVolume volume;
+	[SerializeField] private ColorAdjustments _colorAdjustments;
+	[SerializeField] private float _speed = 0.7f;
 
-	[SerializeField]
-	private float speed = 1.0f;
 	private float startTime;
 
 	private void OnEnable()
@@ -30,12 +25,11 @@ public class Grayscale : MonoBehaviour
 
 	private void Update()
 	{
-		float distCovered = (Time.time - startTime) * speed;
+		float distCovered = (Time.time - startTime) * _speed;
 		float fracJourney = distCovered / 1f;
 		if (startTime > 0)
 		{
-
-			volume.weight = Mathf.Lerp(0f, 1f, fracJourney);
+			_colorAdjustments.saturation.value = Mathf.Lerp(0f, 1f, fracJourney);
 		}
 	}
 }
