@@ -1,44 +1,37 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Zenject;
 
-public class AIInput : InputBehaviour
+public class AIInput : IInitializable, IDisposable
 {
-	private float firstShootCooldown;
-	private float startTime;
+	private readonly IInputState _inputState;
+	private readonly GameObject _gameObject;
 
-	private void OnEnable()
+	public AIInput(IInputState inputState, GameObject gameObject)
 	{
-		this.AddObserver(OnSetFireInput, AI.OnSetFireInputNotification, gameObject);
-		this.AddObserver(OnSetMoveInput, AI.OnSetMoveInputNotification, gameObject);
+		_inputState = inputState;
+		_gameObject = gameObject;
 	}
 
-	private void OnDisable()
+	public void Initialize()
 	{
-		this.RemoveObserver(OnSetFireInput, AI.OnSetFireInputNotification, gameObject);
-		this.RemoveObserver(OnSetMoveInput, AI.OnSetMoveInputNotification, gameObject);
+		_gameObject.AddObserver(OnSetFireInput, AI.OnSetFireInputNotification, _gameObject);
+		_gameObject.AddObserver(OnSetMoveInput, AI.OnSetMoveInputNotification, _gameObject);
 	}
 
-	private void Start()
+	public void Dispose()
 	{
-		startTime = Time.time;
-		firstShootCooldown = Random.Range(0.3f, 1.3f);
+		_gameObject.RemoveObserver(OnSetFireInput, AI.OnSetFireInputNotification, _gameObject);
+		_gameObject.RemoveObserver(OnSetMoveInput, AI.OnSetMoveInputNotification, _gameObject);
 	}
 
 	private void OnSetFireInput(object sender, object args)
 	{
-		if (Time.time > startTime + firstShootCooldown)
-		{
-			var fireInput = (Vector2) args;
-			fire = fireInput;
-		}
+		_inputState.Aim = (Vector2) args;
 	}
 
 	private void OnSetMoveInput(object sender, object args)
 	{
-		var moveInput = (Vector2) args;
-		move = moveInput;
+		_inputState.Move = (Vector2) args;
 	}
 }

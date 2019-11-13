@@ -1,56 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
+using Zenject;
 
 public class Shooter : MonoBehaviour
 {
-	[SerializeField]
-	private InputBehaviour input;
+	[SerializeField][FormerlySerializedAs("projectilePrefab")] private GameObject _projectilePrefab;
+	[SerializeField][FormerlySerializedAs("projectileOrigin")] private Transform _projectileOrigin;
+	[SerializeField][FormerlySerializedAs("projectileOriginDistance")] private float _projectileOriginDistance = 0.8f;
+	[SerializeField][FormerlySerializedAs("cooldown")] private float _cooldown = 0.3f;
+	[SerializeField][FormerlySerializedAs("onFire")] private UnityEvent _onFired;
 
-	[SerializeField]
-	private GameObject projectilePrefab;
-
-	[SerializeField]
-	private Transform projectileOrigin;
-
-	[SerializeField]
-	private float projectileOriginDistance = 0.8f;
-
-	[SerializeField]
-	private float cooldown = 0.3f;
-
-	[SerializeField]
-	private UnityEvent onFire;
-
+	private IInputState _inputState;
 	private float defaultCooldown;
 	private float fireTimestamp;
 
+	[Inject]
+	public void Construct(IInputState inputState)
+	{
+		_inputState = inputState;
+	}
+
 	private void Start()
 	{
-		defaultCooldown = cooldown;
+		defaultCooldown = _cooldown;
 	}
 
 	private void Update()
 	{
-		var fireInput = input.GetFire();
+		var fireInput = _inputState.Aim;
 		if (fireInput.magnitude > 0f)
 		{
-			projectileOrigin.localPosition = fireInput * projectileOriginDistance;
+			_projectileOrigin.localPosition = fireInput * _projectileOriginDistance;
 
 			if (Time.time > fireTimestamp)
 			{
 				SpawnProjectile(fireInput);
-				fireTimestamp = Time.time + cooldown;
-				onFire.Invoke();
+				fireTimestamp = Time.time + _cooldown;
+				_onFired.Invoke();
 			}
 		}
 	}
 
 	private void SpawnProjectile(Vector2 fireDirection)
 	{
-		var instance = GameObject.Instantiate(projectilePrefab);
-		instance.transform.position = projectileOrigin.position;
+		var instance = Instantiate(_projectilePrefab);
+		instance.transform.position = _projectileOrigin.position;
 
 		var projectile = instance.GetComponent<Projectile>();
 		if (projectile)
@@ -59,7 +54,7 @@ public class Shooter : MonoBehaviour
 		}
 		else
 		{
-			Debug.LogWarning($"Missing Projectile component on {projectilePrefab.name}");
+			Debug.LogWarning($"Missing Projectile component on {_projectilePrefab.name}");
 		}
 	}
 
@@ -67,7 +62,7 @@ public class Shooter : MonoBehaviour
 	{
 		if (value)
 		{
-			SetCooldownValue(cooldown * 2);
+			SetCooldownValue(_cooldown * 2);
 		}
 		else
 		{
@@ -77,6 +72,6 @@ public class Shooter : MonoBehaviour
 
 	private void SetCooldownValue(float value)
 	{
-		cooldown = value;
+		_cooldown = value;
 	}
 }
