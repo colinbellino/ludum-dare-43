@@ -1,36 +1,35 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Serialization;
+using Zenject;
 
 public class Movement : MonoBehaviour
 {
-	[SerializeField]
-	private InputBehaviour input;
+	[SerializeField][FormerlySerializedAs("rb")] private Rigidbody2D _rb;
+	[SerializeField][FormerlySerializedAs("animator")] private Animator _animator;
+	[SerializeField][FormerlySerializedAs("speed")] private float _speed = 2f;
 
-	[SerializeField]
-	private Rigidbody2D rb;
+	private IInputState _inputState;
+	private float _currentSpeed;
+	private bool _isIceMode = false;
+	private bool _isSpeedMode = false;
 
-	[SerializeField]
-	private Animator animator;
-
-	[SerializeField]
-	private float speed = 2f;
-	private float currentSpeed;
-	private bool isIceMode = false;
-	private bool isSpeedMode = false;
+	[Inject]
+	public void Construct(IInputState inputState)
+	{
+		_inputState = inputState;
+	}
 
 	private void Start()
 	{
-		currentSpeed = speed;
+		_currentSpeed = _speed;
 	}
 
 	private void Update()
 	{
-		var moveInput = input.GetMove();
+		var moveInput = _inputState.Move;
 		UpdateVelocity(moveInput);
 
-		if (animator)
+		if (_animator)
 		{
 			UpdateAnimator(moveInput);
 		}
@@ -38,18 +37,18 @@ public class Movement : MonoBehaviour
 
 	private void UpdateVelocity(Vector2 moveInput)
 	{
-		if (isIceMode)
+		if (_isIceMode)
 		{
-			var iceSpeed = currentSpeed;
-			if (isSpeedMode)
+			var iceSpeed = _currentSpeed;
+			if (_isSpeedMode)
 			{
-				iceSpeed = speed * 1.3f;
+				iceSpeed = _speed * 1.3f;
 			}
-			rb.AddForce(moveInput * iceSpeed);
+			_rb.AddForce(moveInput * iceSpeed);
 		}
 		else
 		{
-			rb.velocity = moveInput * currentSpeed;
+			_rb.velocity = moveInput * _currentSpeed;
 		}
 	}
 
@@ -57,45 +56,45 @@ public class Movement : MonoBehaviour
 	{
 		if (moveInput.magnitude > 0f)
 		{
-			animator.Play("Walk");
+			_animator.Play("Walk");
 		}
 		else
 		{
-			animator.Play("Idle");
+			_animator.Play("Idle");
 		}
 
 		if (moveInput.x != 0)
 		{
-			animator.SetFloat("MoveX", moveInput.x);
-			animator.SetFloat("MoveY", 0f);
+			_animator.SetFloat("MoveX", moveInput.x);
+			_animator.SetFloat("MoveY", 0f);
 		}
 
 		if (moveInput.y != 0)
 		{
-			animator.SetFloat("MoveX", 0f);
-			animator.SetFloat("MoveY", moveInput.y);
+			_animator.SetFloat("MoveX", 0f);
+			_animator.SetFloat("MoveY", moveInput.y);
 		}
 	}
 
 	public void SetSpeedMode(float speed)
 	{
-		isSpeedMode = true;
+		_isSpeedMode = true;
 		MultiplySpeed(speed);
 	}
 
 	private void MultiplySpeed(float speed)
 	{
-		currentSpeed *= speed;
+		_currentSpeed *= speed;
 	}
 
 	public void ResetSpeed()
 	{
-		isSpeedMode = false;
-		currentSpeed = speed;
+		_isSpeedMode = false;
+		_currentSpeed = _speed;
 	}
 
 	public void SetIceMode(bool value)
 	{
-		isIceMode = value;
+		_isIceMode = value;
 	}
 }

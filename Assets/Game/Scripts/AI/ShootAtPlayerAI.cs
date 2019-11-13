@@ -1,28 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Enemy))]
 public class ShootAtPlayerAI : AI
 {
-	private GameManager gameManager;
+	[SerializeField] private readonly float _cooldown = 1f;
+
+	private GameManager _gameManager;
+	private float _timestamp;
 
 	[Inject]
 	public void Construct(GameManager gameManager)
 	{
-		this.gameManager = gameManager;
+		_gameManager = gameManager;
 	}
 
 	private void Update()
 	{
-		var target = gameManager.player.transform;
+		TryShoot();
+	}
+
+	private void TryShoot()
+	{
+		var isOnCooldown = Time.time < _timestamp;
+		if (isOnCooldown) { return; }
+
+		var target = _gameManager.player.transform;
 		var fireVector = (target.position - transform.position).normalized;
 
 		var fireInput = new Vector2(
 			fireVector.x,
 			fireVector.y
 		);
-		gameObject.PostNotification(AI.OnSetFireInputNotification, fireInput);
+		gameObject.PostNotification(OnSetFireInputNotification, fireInput);
+		UnityEngine.Debug.Log("dooht");
+		_timestamp = Time.time + _cooldown;
 	}
 }

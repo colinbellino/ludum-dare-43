@@ -1,32 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Zenject;
 
 public class Wenk : MonoBehaviour
 {
-	[SerializeField]
-	private InputBehaviour input;
+	[SerializeField][FormerlySerializedAs("cooldown")] private float _cooldown = 1f;
+	[SerializeField][FormerlySerializedAs("onWenk")] private UnityEvent _onWenked;
 
-	[SerializeField]
-	private float cooldown = 1f;
+	private IInputState _inputState;
+	private float _wenkTimestamp;
 
-	[SerializeField]
-	private UnityEvent onWenk;
-
-	private float wenkTimestamp;
+	[Inject]
+	public void Construct(IInputState inputState)
+	{
+		_inputState = inputState;
+	}
 
 	private void Update()
 	{
-		var submitInput = input.GetSubmit();
-		if (submitInput)
+		if (_inputState.Act)
 		{
-			if (Time.time > wenkTimestamp)
-			{
-				onWenk.Invoke();
-				wenkTimestamp = Time.time + cooldown;
-			}
+			TryWenk();
 		}
+	}
+
+	private void TryWenk()
+	{
+		var isCoolingDown = Time.time < _wenkTimestamp;
+		if (isCoolingDown)
+		{
+			return;
+		}
+
+		_onWenked.Invoke();
+		_wenkTimestamp = Time.time + _cooldown;
 	}
 }
