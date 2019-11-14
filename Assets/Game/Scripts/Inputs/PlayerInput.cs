@@ -1,27 +1,26 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerInput : ITickable
+public class PlayerInput : ITickable, IInitializable
 {
 	private readonly IInputState _inputState;
+	private readonly SimpleControls _controls;
 
 	public PlayerInput(IInputState inputState)
 	{
 		_inputState = inputState;
+		_controls = new SimpleControls();
+	}
+
+	public void Initialize()
+	{
+		_controls.Gameplay.Enable();
 	}
 
 	public void Tick()
 	{
-		_inputState.Move = new Vector2(
-			Input.GetAxis("Move Horizontal"),
-			Input.GetAxis("Move Vertical")
-		);
-
-		_inputState.Aim = Vector3.Normalize(new Vector2(
-			Input.GetAxis("Fire Horizontal"),
-			Input.GetAxis("Fire Vertical")
-		));
-
-		_inputState.Act = Input.GetButton("Submit");
+		_inputState.Move = _controls.Gameplay.Move.ReadValue<Vector2>();
+		_inputState.Aim = _controls.Gameplay.Aim.ReadValue<Vector2>();
+		_inputState.Act = _controls.Gameplay.Act.ReadValue<float>() > 0;
 	}
 }
