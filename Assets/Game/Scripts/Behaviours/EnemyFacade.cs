@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class Enemy : MonoBehaviour, INotifier
+public class EnemyFacade : MonoBehaviour, INotifier
 {
 	[SerializeField] private GameObject HealthBar;
 
@@ -52,5 +52,5 @@ public class Enemy : MonoBehaviour, INotifier
 		gameObject.PostNotification(name, obj);
 	}
 
-	public class Factory : PlaceholderFactory<Vector3, Enemy> { }
+	public class Factory : PlaceholderFactory<Vector3, EnemyFacade> { }
 }
