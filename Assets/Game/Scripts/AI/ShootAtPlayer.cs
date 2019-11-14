@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class ShootAtPlayer : IBrainPart
 {
-	private readonly INotifier _notifier;
+	private readonly IInputState _inputState;
 	private readonly Transform _transform;
 	private readonly ITarget _target;
 
-	public ShootAtPlayer(INotifier notifier, Transform transform, ITarget target)
+	public ShootAtPlayer(IInputState inputState, Transform transform, ITarget target)
 	{
-		_notifier = notifier;
+		_inputState = inputState;
 		_transform = transform;
 		_target = target;
 	}
@@ -16,8 +16,6 @@ public class ShootAtPlayer : IBrainPart
 	public void Tick()
 	{
 		var aimVector = (_target.Transform.position - _transform.position).normalized;
-		var fireInput = new Vector2(aimVector.x, aimVector.y);
-
-		_notifier.NotifySelf(Notifications.OnSetFireInputNotification, fireInput);
+		_inputState.Aim = new Vector2(aimVector.x, aimVector.y);
 	}
 }
