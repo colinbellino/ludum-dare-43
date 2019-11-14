@@ -1,23 +1,23 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
 using Zenject;
 
-public class Wenk : MonoBehaviour
+public class Wenk : ITickable
 {
-	[SerializeField][FormerlySerializedAs("cooldown")] private float _cooldown = 1f;
-	[SerializeField][FormerlySerializedAs("onWenk")] private UnityEvent _onWenked;
+	private readonly AudioPlayer _audioPlayer;
+	private readonly IInputState _inputState;
+	private readonly Settings _settings;
 
-	private IInputState _inputState;
-	private float _wenkTimestamp;
+	private float _timestamp;
 
-	[Inject]
-	public void Construct(IInputState inputState)
+	public Wenk(IInputState inputState, AudioPlayer audioPlayer, Settings settings)
 	{
 		_inputState = inputState;
+		_audioPlayer = audioPlayer;
+		_settings = settings;
 	}
 
-	private void Update()
+	public void Tick()
 	{
 		if (_inputState.Act)
 		{
@@ -27,13 +27,20 @@ public class Wenk : MonoBehaviour
 
 	private void TryWenk()
 	{
-		var isCoolingDown = Time.time < _wenkTimestamp;
+		var isCoolingDown = Time.time < _timestamp;
 		if (isCoolingDown)
 		{
 			return;
 		}
 
-		_onWenked.Invoke();
-		_wenkTimestamp = Time.time + _cooldown;
+		_audioPlayer.PlayRandom(_settings.Sounds);
+		_timestamp = Time.time + _settings.Cooldown;
+	}
+
+	[Serializable]
+	public class Settings
+	{
+		public float Cooldown = 1f;
+		public AudioClip[] Sounds;
 	}
 }

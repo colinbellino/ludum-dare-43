@@ -33,3 +33,12 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 8885532686460678695, guid: d5ba900222cd65b4886ab0eeb3e0b347, type: 3}
   - {fileID: 8885532686460678695, guid: d790fa2afa04c614eb449cca9de0015a, type: 3}
+  PlayerSettings:
+    Wenk:
+      Cooldown: 0.5
+      Sounds:
+      - {fileID: 8300000, guid: 379a416faab390749851f8327fd7e447, type: 3}
+      - {fileID: 8300000, guid: 7a3e1e3498a69ee4db629ea391e4da9d, type: 3}
+      - {fileID: 8300000, guid: 4a0bf714b14d39349899d5213eb30e14, type: 3}
+      - {fileID: 8300000, guid: c46c23c24f3aa6349a9ce703440b852b, type: 3}
+      - {fileID: 8300000, guid: 42b1a8f9f9e190a4092b1d41046035fd, type: 3}

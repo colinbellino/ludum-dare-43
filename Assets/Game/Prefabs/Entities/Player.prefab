@@ -145,8 +145,6 @@ GameObject:
   - component: {fileID: 292485459968603070}
   - component: {fileID: 3492163957998983327}
   - component: {fileID: 300368964092380891}
-  - component: {fileID: 5929464596865034378}
-  - component: {fileID: 5079810069575115439}
   - component: {fileID: 3187467313634084598}
   - component: {fileID: 546571222410043478}
   - component: {fileID: 1903912066}
@@ -289,66 +287,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5079810069575115439}
-        m_MethodName: PlayRandomSound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   onStartup:
     m_PersistentCalls:
       m_Calls: []
   invulnerabilityFrameCoolDown: 0.5
---- !u!114 &5929464596865034378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7712446667477971421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faf799beb2d666f48a6ec62e7b85449b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cooldown: 0.5
-  _onWenked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5079810069575115439}
-        m_MethodName: PlayRandomSound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &5079810069575115439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7712446667477971421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4756f2302ddc9f843a2ef13c9f0b184c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 3187467313634084598}
-  audioClips:
-  - {fileID: 8300000, guid: 379a416faab390749851f8327fd7e447, type: 3}
-  - {fileID: 8300000, guid: 7a3e1e3498a69ee4db629ea391e4da9d, type: 3}
-  - {fileID: 8300000, guid: 4a0bf714b14d39349899d5213eb30e14, type: 3}
-  - {fileID: 8300000, guid: 42b1a8f9f9e190a4092b1d41046035fd, type: 3}
 --- !u!82 &3187467313634084598
 AudioSource:
   m_ObjectHideFlags: 0

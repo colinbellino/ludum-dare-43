@@ -3,11 +3,8 @@ using Zenject;
 
 public class GameInstaller : MonoInstaller
 {
-	[SerializeField]
-	private GameManager gameManager;
-
-	[SerializeField]
-	private GameSettings settings;
+	[SerializeField] private GameManager gameManager;
+	[SerializeField] private GameSettings settings;
 
 	public override void InstallBindings()
 	{
@@ -19,12 +16,12 @@ public class GameInstaller : MonoInstaller
 			.WhenInjectedInto<GameManager>();
 
 		// TODO: Clean this up...
-		Container.BindFactory<Vector3, Enemy, Enemy.Factory>()
+		Container.BindFactory<Vector3, EnemyFacade, EnemyFacade.Factory>()
 			.FromSubContainerResolve()
 			.ByNewContextPrefab<EnemyInstaller>(settings.enemyPrefabs[0])
 			.WhenInjectedInto<SkullSpawner>();
 
-		Container.BindFactory<Vector3, Enemy, Enemy.Factory>()
+		Container.BindFactory<Vector3, EnemyFacade, EnemyFacade.Factory>()
 			.FromSubContainerResolve()
 			.ByNewContextPrefab<EnemyInstaller>(settings.enemyPrefabs[1])
 			.WhenInjectedInto<MuncherSpawner>();

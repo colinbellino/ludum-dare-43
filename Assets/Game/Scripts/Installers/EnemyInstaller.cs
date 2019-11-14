@@ -12,13 +12,11 @@ public class EnemyInstaller : MonoInstaller
 
 	public override void InstallBindings()
 	{
-		Container.BindInterfacesAndSelfTo<Enemy>().FromComponentOnRoot();
+		Container.BindInterfacesAndSelfTo<EnemyFacade>().FromComponentOnRoot();
 		Container.Bind<Transform>().FromComponentOnRoot();
 		Container.Bind<GameObject>().FromInstance(gameObject);
 		Container.BindInterfacesTo<EnemySpawnHandler>().AsSingle();
 		Container.BindInstance(_initialPosition).WhenInjectedInto<EnemySpawnHandler>();
-
-		Container.Bind<IInputState>().To<InputState>().AsSingle();
 
 		InstallBrain();
 	}
@@ -26,6 +24,7 @@ public class EnemyInstaller : MonoInstaller
 	private void InstallBrain()
 	{
 		Container.Bind<ITarget>().FromInstance(_gameManager.Player);
+		Container.Bind<IInputState>().To<InputState>().AsSingle();
 
 		if (_moveTowardsPlayer)
 		{
