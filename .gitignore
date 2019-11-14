@@ -88,6 +88,9 @@ $RECYCLE.BIN/
 .vscode
 .history
 
+# Jetbrains
+.idea
+
 # Tests
 TestResults-*
 InitTestScene*
