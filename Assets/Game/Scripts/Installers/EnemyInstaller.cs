@@ -19,7 +19,6 @@ public class EnemyInstaller : MonoInstaller
 		Container.BindInstance(_initialPosition).WhenInjectedInto<EnemySpawnHandler>();
 
 		Container.Bind<IInputState>().To<InputState>().AsSingle();
-		Container.BindInterfacesAndSelfTo<AIInput>().AsSingle();
 
 		InstallBrain();
 	}

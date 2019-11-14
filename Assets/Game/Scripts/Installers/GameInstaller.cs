@@ -18,6 +18,7 @@ public class GameInstaller : MonoInstaller
 			.FromComponentInChildren()
 			.WhenInjectedInto<GameManager>();
 
+		// TODO: Clean this up...
 		Container.BindFactory<Vector3, Enemy, Enemy.Factory>()
 			.FromSubContainerResolve()
 			.ByNewContextPrefab<EnemyInstaller>(settings.enemyPrefabs[0])

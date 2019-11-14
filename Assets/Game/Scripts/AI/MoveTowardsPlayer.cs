@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class MoveTowardsPlayer : IBrainPart
 {
-	private readonly INotifier _notifier;
+	private readonly IInputState _inputState;
 	private readonly Transform _transform;
 	private readonly ITarget _target;
 
-	public MoveTowardsPlayer(INotifier notifier, Transform transform, ITarget target)
+	public MoveTowardsPlayer(IInputState inputState, Transform transform, ITarget target)
 	{
-		_notifier = notifier;
+		_inputState = inputState;
 		_transform = transform;
 		_target = target;
 	}
@@ -16,8 +16,6 @@ public class MoveTowardsPlayer : IBrainPart
 	public void Tick()
 	{
 		var moveVector = (_target.Transform.position - _transform.position).normalized;
-		var moveInput = new Vector2(moveVector.x, moveVector.y);
-
-		_notifier.NotifySelf(Notifications.OnSetMoveInputNotification, moveInput);
+		_inputState.Move = new Vector2(moveVector.x, moveVector.y);
 	}
 }
