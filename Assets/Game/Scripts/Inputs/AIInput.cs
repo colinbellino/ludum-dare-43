@@ -15,14 +15,14 @@ public class AIInput : IInitializable, IDisposable
 
 	public void Initialize()
 	{
-		_gameObject.AddObserver(OnSetFireInput, AI.OnSetFireInputNotification, _gameObject);
-		_gameObject.AddObserver(OnSetMoveInput, AI.OnSetMoveInputNotification, _gameObject);
+		_gameObject.AddObserver(OnSetFireInput, Notifications.OnSetFireInputNotification, _gameObject);
+		_gameObject.AddObserver(OnSetMoveInput, Notifications.OnSetMoveInputNotification, _gameObject);
 	}
 
 	public void Dispose()
 	{
-		_gameObject.RemoveObserver(OnSetFireInput, AI.OnSetFireInputNotification, _gameObject);
-		_gameObject.RemoveObserver(OnSetMoveInput, AI.OnSetMoveInputNotification, _gameObject);
+		_gameObject.RemoveObserver(OnSetFireInput, Notifications.OnSetFireInputNotification, _gameObject);
+		_gameObject.RemoveObserver(OnSetMoveInput, Notifications.OnSetMoveInputNotification, _gameObject);
 	}
 
 	private void OnSetFireInput(object sender, object args)

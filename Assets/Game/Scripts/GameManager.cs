@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 	public const string OnStartCombatNotification = "GameManager.StartCombatNotification";
 	public const string OnLevelSpawn = "GameManager.LevelSpawn";
 
-	public GameObject player { get; private set; }
+	public PlayerFacade Player { get; private set; }
 
 	[SerializeField]
 	private Transform spawnPoint;
@@ -28,9 +28,10 @@ public class GameManager : MonoBehaviour
 	public void Construct(GameSettings settings)
 	{
 		this.settings = settings;
+		// TODO: Clean this
 		// I think this is a bad practice to use GameObject methods in Construct but we need the player to
-		// be present when GameManager is injected. Also this is a game jam so if it works...
-		this.player = GameObject.FindGameObjectWithTag("Player");
+		// be present when GameManager is injected. Also this is a game jam so, if it works...
+		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFacade>();
 	}
 
 	private void OnEnable()
@@ -116,7 +117,7 @@ public class GameManager : MonoBehaviour
 	private void OnDeath(object sender, object args)
 	{
 		var senderHealth = (Health) sender;
-		if (senderHealth.gameObject == player)
+		if (senderHealth.gameObject == Player)
 		{
 			SceneManager.LoadScene("GameOver");
 		}
@@ -136,7 +137,7 @@ public class GameManager : MonoBehaviour
 
 	private void NextLevel()
 	{
-		player.transform.position = spawnPoint.position;
+		Player.transform.position = spawnPoint.position;
 		currentLevelIndex++;
 		SpawnLevel();
 	}
