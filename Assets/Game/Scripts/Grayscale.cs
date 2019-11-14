@@ -4,11 +4,12 @@ using UnityEngine.Rendering.Universal;
 
 public class Grayscale : MonoBehaviour
 {
-	[SerializeField] private float _speed = 0.7f;
+	[SerializeField] private float _speed = 0.5f;
 
 	private ColorAdjustments _colorAdjustments;
 
-	private float startTime;
+	private float _startTime;
+	private float _saturation;
 
 	private void OnEnable()
 	{
@@ -24,16 +25,17 @@ public class Grayscale : MonoBehaviour
 
 	private void OnEnableColorSacrifice(object sender, object args)
 	{
-		startTime = Time.time;
+		_startTime = Time.time;
+		_saturation = -100f;
 	}
 
 	private void Update()
 	{
-		float distCovered = (Time.time - startTime) * _speed;
+		float distCovered = (Time.time - _startTime) * _speed;
 		float fracJourney = distCovered / 1f;
-		if (startTime > 0)
+		if (_startTime > Time.time)
 		{
-			_colorAdjustments.saturation.value = Mathf.Lerp(-100f, 0, fracJourney);
+			_colorAdjustments.saturation.value = Mathf.Lerp(0, _saturation, fracJourney);
 		}
 	}
 }
