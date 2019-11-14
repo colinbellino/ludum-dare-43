@@ -49,10 +49,10 @@ public class SacrificesManager : MonoBehaviour
 	[SerializeField]
 	private UnityEvent onChooseSacrifice;
 
-	private Settings settings;
+	private GameSettings settings;
 
 	[Inject]
-	public void Construct(Settings settings)
+	public void Construct(GameSettings settings)
 	{
 		this.settings = settings;
 	}
