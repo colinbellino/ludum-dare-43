@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyHealthBar : MonoBehaviour
@@ -23,7 +20,7 @@ public class EnemyHealthBar : MonoBehaviour
 
 	public void UpdateLifePercent()
 	{
-		if (_healthBarForeground.active)
+		if (_healthBarForeground.activeInHierarchy)
 		{
 			_healthBarForeground.GetComponent<Image>().fillAmount = CalculateHealthPercent();
 		}
