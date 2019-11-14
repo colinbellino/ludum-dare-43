@@ -32,5 +32,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 593dd88f0cda67f45a94f2251cba83d4, type: 2}
   enemyPrefabs:
   - {fileID: 8885532686460678695, guid: d5ba900222cd65b4886ab0eeb3e0b347, type: 3}
-  - {fileID: 8885532686460678695, guid: 2eff26ca834cd2a48b75b4981b91cef0, type: 3}
   - {fileID: 8885532686460678695, guid: d790fa2afa04c614eb449cca9de0015a, type: 3}

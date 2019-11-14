@@ -26,11 +26,6 @@ public class GameInstaller : MonoInstaller
 		Container.BindFactory<Vector3, Enemy, Enemy.Factory>()
 			.FromSubContainerResolve()
 			.ByNewContextPrefab<EnemyInstaller>(settings.enemyPrefabs[1])
-			.WhenInjectedInto<TargetDummySpawner>();
-
-		Container.BindFactory<Vector3, Enemy, Enemy.Factory>()
-			.FromSubContainerResolve()
-			.ByNewContextPrefab<EnemyInstaller>(settings.enemyPrefabs[2])
 			.WhenInjectedInto<MuncherSpawner>();
 	}
 }
