@@ -33,7 +33,7 @@ public class Grayscale : MonoBehaviour
 	{
 		float distCovered = (Time.time - _startTime) * _speed;
 		float fracJourney = distCovered / 1f;
-		if (_startTime > Time.time)
+		if (_startTime >= 0)
 		{
 			_colorAdjustments.saturation.value = Mathf.Lerp(0, _saturation, fracJourney);
 		}

@@ -7,7 +7,7 @@ public class GameInstaller : MonoInstaller
 	private GameManager gameManager;
 
 	[SerializeField]
-	private Settings settings;
+	private GameSettings settings;
 
 	public override void InstallBindings()
 	{

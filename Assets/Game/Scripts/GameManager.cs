@@ -1,11 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using RotaryHeart.Lib.SerializableDictionary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Zenject;
 
 public class GameManager : MonoBehaviour
@@ -26,12 +20,12 @@ public class GameManager : MonoBehaviour
 
 	private int currentLevelIndex = -1;
 	public GameObject currentLevel { get; private set; }
-	private Settings settings;
+	private GameSettings settings;
 	private bool isCombatPhase;
 	public bool IsNoUiMode = false;
 
 	[Inject]
-	public void Construct(Settings settings)
+	public void Construct(GameSettings settings)
 	{
 		this.settings = settings;
 		// I think this is a bad practice to use GameObject methods in Construct but we need the player to
