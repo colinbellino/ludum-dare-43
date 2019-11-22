@@ -53,8 +53,16 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
-		// StartNextGameplayPhase();
-		Invoke("StartNextGameplayPhase", 0.1f);
+		var isDebugMode = spawnPoint == null;
+		if (isDebugMode)
+		{
+			Invoke("StartCombat", 0.1f);
+		}
+		else
+		{
+			Invoke("StartNextGameplayPhase", 0.1f);
+		}
+
 		this.AddObserver(SetNoUIMode, KnowledgeSacrifice.OnUiDisable);
 	}
 
@@ -92,26 +100,36 @@ public class GameManager : MonoBehaviour
 
 	private void StartNextGameplayPhase()
 	{
-		exit.SetActive(false);
+		if (exit != null)
+		{
+			exit.SetActive(false);
+		}
 
 		if (isCombatPhase)
 		{
 			isCombatPhase = false;
 			NextLevel();
-			this.PostNotification(OnStartSacrificeNotification);
+			StartSacrifice();
 		}
 		else
 		{
 			isCombatPhase = true;
 			NextLevel();
-			this.PostNotification(OnStartCombatNotification);
+			StartCombat();
 		}
 	}
 
-	private void OnChooseSacrifice(object sender, object args)
+	private void StartSacrifice()
+	{
+		this.PostNotification(OnStartSacrificeNotification);
+	}
+
+	private void StartCombat()
 	{
 		this.PostNotification(OnStartCombatNotification);
 	}
+
+	private void OnChooseSacrifice(object sender, object args) => StartCombat();
 
 	private void OnDeath(object sender, object args)
 	{

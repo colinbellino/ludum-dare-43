@@ -32,7 +32,7 @@ public abstract class EnemySpawner : MonoBehaviour
 
 	private void SpawnEnemies()
 	{
-		var spawnPoints = gameManager.currentLevel.transform.GetComponentsInChildren<EnemySpawnPoint>();
+		var spawnPoints = FindObjectsOfType<EnemySpawnPoint>();
 		foreach (var spawnPoint in spawnPoints)
 		{
 			if (spawnPoint.enemy == GetEnemyType())
