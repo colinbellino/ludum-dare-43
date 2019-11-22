@@ -18,9 +18,14 @@ public class KillAllEnemiesExitCondition : ExitCondition
 
 	private void OnDeath(object sender, object args)
 	{
-		var enemies = GameObject.FindGameObjectsWithTag("Enemy");
-		// This is set to 1 because we do the check before the last enemy has been deleted.
-		isConditionFullfilled = enemies.Length <= 1;
+		var senderHealth = (Health) sender;
+
+		if (senderHealth.gameObject.CompareTag("Enemy"))
+		{
+			var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+			// This is set to 1 because we do the check before the last enemy has been deleted.
+			isConditionFullfilled = enemies.Length <= 1;
+		}
 	}
 
 	protected override bool CheckForExitCondition()
