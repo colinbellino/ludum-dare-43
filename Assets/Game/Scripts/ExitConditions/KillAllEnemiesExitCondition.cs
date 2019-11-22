@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class KillAllEnemiesExitCondition : ExitCondition
 {
@@ -18,14 +16,15 @@ public class KillAllEnemiesExitCondition : ExitCondition
 
 	private void OnDeath(object sender, object args)
 	{
-		var senderHealth = (Health) sender;
-
-		if (senderHealth.gameObject.CompareTag("Enemy"))
+		var isEnemy = ((MonoBehaviour) sender).CompareTag("Enemy");
+		if (isEnemy == false)
 		{
-			var enemies = GameObject.FindGameObjectsWithTag("Enemy");
-			// This is set to 1 because we do the check before the last enemy has been deleted.
-			isConditionFullfilled = enemies.Length <= 1;
+			return;
 		}
+
+		// This is set to 1 because we do the check before the last enemy has been deleted.
+		var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+		isConditionFullfilled = enemies.Length <= 1;
 	}
 
 	protected override bool CheckForExitCondition()
