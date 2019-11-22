@@ -4,25 +4,25 @@ using Zenject;
 
 public class Health : MonoBehaviour
 {
-	public const string OnDeathNotification = "Health.OnDeathNotification";
-	public const string OnHitNotification = "Health.OnHitNotification";
-
-	public int Current { get; private set; }
-	public int Max { get; private set; }
-
-	private const int min = 0;
-	private int defaultMax;
-	private float iFrameStart;
-
 	[SerializeField] private UnityEvent onDeathEvent;
 	[SerializeField] private UnityEvent onHit;
 	[SerializeField] private UnityEvent onStartup;
 	[SerializeField] private float invulnerabilityFrameCoolDown = 0.3f;
 
+	public const string OnDeathNotification = "Health.OnDeathNotification";
+	public const string OnHitNotification = "Health.OnHitNotification";
+
+	// public int Current => _stats.Health.Current;
+	public int Max { get; private set; }
+
+	private const int min = 0;
+	private float iFrameStart;
+	private EntityStats _stats;
+
 	[Inject]
-	public void Construct(EntitySettings settings)
+	public void Construct(EntityStats stats)
 	{
-		Current = settings.Health;
+		_stats = stats;
 	}
 
 	private void OnEnable()
@@ -45,8 +45,7 @@ public class Health : MonoBehaviour
 	private void Start()
 	{
 		iFrameStart = Time.time;
-		Max = Current;
-		defaultMax = Current;
+		Max = _stats.MaxHealth.Current;
 		onStartup.Invoke();
 	}
 
@@ -54,9 +53,9 @@ public class Health : MonoBehaviour
 	{
 		if (!IsIFrame())
 		{
-			ClampHealth(Current - damage);
+			_stats.Health.Current -= damage;
 
-			if (Current <= 0)
+			if (_stats.Health.Current <= 0)
 			{
 				onDeathEvent.Invoke();
 				this.PostNotification(OnDeathNotification);
@@ -67,22 +66,12 @@ public class Health : MonoBehaviour
 	public void SetMaxHealth(int value)
 	{
 		Max = value;
-		ClampHealth(Current);
-	}
-
-	public void ResetToMaxDefaultHealth()
-	{
-		Max = defaultMax;
+		_stats.Health.Current = _stats.Health.Current;
 	}
 
 	public void DestroyItself()
 	{
 		Destroy(gameObject);
-	}
-
-	private void ClampHealth(int value)
-	{
-		Current = Mathf.Clamp(value, min, Max);
 	}
 
 	private bool IsIFrame()
