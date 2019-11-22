@@ -2,16 +2,14 @@
 
 public class DexteritySacrifice : MonoBehaviour, ISacrifice
 {
-	private Shooter _playerShooter;
+	private EntityStats _stats;
 
 	public void OnApply()
 	{
-		var player = GameObject.Find("Player");
-
-		if (player)
+		_stats = GameObject.Find("Player")?.GetComponent<IEntity>()?.Stats;
+		if (_stats != null)
 		{
-			_playerShooter = player.GetComponent<Shooter>();
-			_playerShooter.SetCooldownMode(true);
+			_stats.FireRate.Current /= 2;
 		}
 	}
 

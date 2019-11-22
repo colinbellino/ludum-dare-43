@@ -16,6 +16,7 @@ public class EntityInstaller : MonoInstaller
 			MoveSpeed = new Stat(Stats.MoveSpeed, _settings.MoveSpeed),
 				Health = new Stat(Stats.Health, _settings.Health),
 				MaxHealth = new Stat(Stats.MaxHealth, _settings.Health),
+				FireRate = new Stat(Stats.FireRate, _settings.FireRate),
 		};
 		Container.BindInstance(stats);
 	}
@@ -25,7 +26,7 @@ public class EntityInstaller : MonoInstaller
 public class EntitySettings
 {
 	public int MoveSpeed;
-	public float FireRate;
+	public int FireRate;
 	public int Health;
 	public Alliances Alliance;
 }
@@ -35,4 +36,5 @@ public class EntityStats
 	public Stat MoveSpeed;
 	public Stat Health;
 	public Stat MaxHealth;
+	public Stat FireRate;
 }

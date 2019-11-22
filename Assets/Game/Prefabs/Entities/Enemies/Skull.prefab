@@ -290,7 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
     MoveSpeed: 0
-    FireRate: 1.5
+    FireRate: 20
     Health: 2
     Alliance: 1
 --- !u!1001 &3155541367432920080
