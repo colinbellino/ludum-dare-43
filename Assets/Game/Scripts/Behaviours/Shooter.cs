@@ -11,7 +11,6 @@ public class Shooter : MonoBehaviour
 	[SerializeField][FormerlySerializedAs("onFire")] private UnityEvent _onFired;
 
 	private IInputState _inputState;
-	private float _defaultCooldown;
 	private float _fireTimestamp;
 	private float _fireRate;
 
@@ -20,11 +19,6 @@ public class Shooter : MonoBehaviour
 	{
 		_inputState = inputState;
 		_fireRate = settings.FireRate;
-	}
-
-	private void Start()
-	{
-		_defaultCooldown = _fireRate;
 	}
 
 	private void Update()
@@ -37,7 +31,7 @@ public class Shooter : MonoBehaviour
 			if (Time.time > _fireTimestamp)
 			{
 				SpawnProjectile(fireInput);
-				_fireTimestamp = Time.time + _fireRate;
+				_fireTimestamp = Time.time + _fireRate / 10f;
 				_onFired.Invoke();
 			}
 		}
@@ -57,22 +51,5 @@ public class Shooter : MonoBehaviour
 		{
 			Debug.LogWarning($"Missing Projectile component on {_projectilePrefab.name}");
 		}
-	}
-
-	public void SetCooldownMode(bool value)
-	{
-		if (value)
-		{
-			SetCooldownValue(_fireRate * 2);
-		}
-		else
-		{
-			SetCooldownValue(_defaultCooldown);
-		}
-	}
-
-	private void SetCooldownValue(float value)
-	{
-		_fireRate = value;
 	}
 }
