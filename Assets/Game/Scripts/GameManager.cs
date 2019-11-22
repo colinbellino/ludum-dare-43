@@ -113,11 +113,10 @@ public class GameManager : MonoBehaviour
 		this.PostNotification(OnStartCombatNotification);
 	}
 
-	// TODO: Go to death screen.
 	private void OnDeath(object sender, object args)
 	{
-		var senderHealth = (Health) sender;
-		if (senderHealth.gameObject == Player)
+		var actor = ((MonoBehaviour) sender).GetComponent<PlayerFacade>();
+		if (actor == Player)
 		{
 			SceneManager.LoadScene("GameOver");
 		}
