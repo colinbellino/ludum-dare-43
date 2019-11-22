@@ -4,25 +4,26 @@ using UnityEngine.UI;
 public class EnemyHealthBar : MonoBehaviour
 {
 	[SerializeField] private GameObject _healthBarForeground;
-	private Health _health;
 
-	// Start is called before the first frame update
+	private EntityStats _stats;
+
 	private void Start()
 	{
-		_health = GetComponentInParent<Health>();
+		_stats = GetComponentInParent<IEntity>()?.Stats;
 		UpdateLifePercent();
 	}
 
-	private float CalculateHealthPercent()
-	{
-		return (float) _health.Current / _health.Max;
-	}
-
+	// FIXME: Subscribe to changes to Health / MaxHealth instead of calling this with UnityEvents
 	public void UpdateLifePercent()
 	{
 		if (_healthBarForeground.activeInHierarchy)
 		{
 			_healthBarForeground.GetComponent<Image>().fillAmount = CalculateHealthPercent();
 		}
+	}
+
+	private float CalculateHealthPercent()
+	{
+		return (float) _stats.Health.Current / _stats.MaxHealth.Current;
 	}
 }

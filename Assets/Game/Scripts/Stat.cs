@@ -51,4 +51,5 @@ public enum Stats
 	MoveSpeed,
 	FireRate,
 	Health,
+	MaxHealth,
 }

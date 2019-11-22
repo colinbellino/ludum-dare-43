@@ -8,13 +8,17 @@ public class HealthBarUI : MonoBehaviour
 	[SerializeField] private Sprite emptySprite;
 	[SerializeField] private Sprite fullSprite;
 
-	private Health _playerHealth;
+	private EntityStats _stats;
 
 	private void Start()
 	{
-		var player = GameObject.Find("Player");
-		_playerHealth = player.GetComponent<Health>();
+		_stats = GameObject.Find("Player")?.GetComponent<IEntity>()?.Stats;
+		UpdateHealthStatus();
+	}
 
+	private void Update()
+	{
+		// FIXME: Subscribe to changes instead of updating EVERY SINGLE FRAME
 		UpdateHealthStatus();
 	}
 
@@ -22,13 +26,8 @@ public class HealthBarUI : MonoBehaviour
 	{
 		for (int i = 0; i < images.Count; i++)
 		{
-			images[i].enabled = _playerHealth.Max > i;
-			images[i].sprite = _playerHealth.Current > i ? fullSprite : emptySprite;
+			images[i].enabled = _stats.MaxHealth.Current > i;
+			images[i].sprite = _stats.Health.Current > i ? fullSprite : emptySprite;
 		}
-	}
-
-	private void Update()
-	{
-		UpdateHealthStatus();
 	}
 }
