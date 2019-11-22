@@ -6,22 +6,18 @@ public class Movement : MonoBehaviour
 {
 	[SerializeField][FormerlySerializedAs("rb")] private Rigidbody2D _rb;
 	[SerializeField][FormerlySerializedAs("animator")] private Animator _animator;
-	[SerializeField][FormerlySerializedAs("speed")] private float _speed = 2f;
 
 	private IInputState _inputState;
+	private EntitySettings _settings;
 	private float _currentSpeed;
-	private bool _isIceMode = false;
-	private bool _isSpeedMode = false;
 
 	[Inject]
-	public void Construct(IInputState inputState)
+	public void Construct(IInputState inputState, EntitySettings settings)
 	{
 		_inputState = inputState;
-	}
+		_settings = settings;
 
-	private void Start()
-	{
-		_currentSpeed = _speed;
+		_currentSpeed = _settings.MoveSpeed;
 	}
 
 	private void Update()
@@ -37,19 +33,7 @@ public class Movement : MonoBehaviour
 
 	private void UpdateVelocity(Vector2 moveInput)
 	{
-		if (_isIceMode)
-		{
-			var iceSpeed = _currentSpeed;
-			if (_isSpeedMode)
-			{
-				iceSpeed = _speed * 1.3f;
-			}
-			_rb.AddForce(moveInput * iceSpeed);
-		}
-		else
-		{
-			_rb.velocity = moveInput * _currentSpeed;
-		}
+		_rb.velocity = moveInput * _currentSpeed;
 	}
 
 	private void UpdateAnimator(Vector2 moveInput)
@@ -78,7 +62,6 @@ public class Movement : MonoBehaviour
 
 	public void SetSpeedMode(float speed)
 	{
-		_isSpeedMode = true;
 		MultiplySpeed(speed);
 	}
 
@@ -89,12 +72,6 @@ public class Movement : MonoBehaviour
 
 	public void ResetSpeed()
 	{
-		_isSpeedMode = false;
-		_currentSpeed = _speed;
-	}
-
-	public void SetIceMode(bool value)
-	{
-		_isIceMode = value;
+		_currentSpeed = _settings.MoveSpeed;
 	}
 }

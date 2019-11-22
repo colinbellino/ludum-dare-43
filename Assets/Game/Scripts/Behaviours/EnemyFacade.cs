@@ -2,18 +2,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class EnemyFacade : MonoBehaviour, INotifier
+public class EnemyFacade : MonoBehaviour, INotifier, IEntity
 {
 	[SerializeField] private GameObject HealthBar;
 
 	private GameManager _gameManager;
 	private List<IBrainPart> _brain;
 
+	public Alliances Alliance { get; private set; }
+
 	[Inject]
-	public void Construct(GameManager gameManager, List<IBrainPart> brain)
+	public void Construct(GameManager gameManager, List<IBrainPart> brain, EntitySettings settings)
 	{
 		_gameManager = gameManager;
 		_brain = brain;
+
+		Alliance = settings.Alliance;
 	}
 
 	private void OnEnable()

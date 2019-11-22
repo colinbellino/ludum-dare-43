@@ -124,9 +124,9 @@ GameObject:
   - component: {fileID: 8243138663395968017}
   - component: {fileID: 2186693991929349949}
   - component: {fileID: 8092949171340779860}
-  - component: {fileID: 5682527608083801377}
   - component: {fileID: 8855389310855670223}
   - component: {fileID: 4879242734261612212}
+  - component: {fileID: 6159160726468998790}
   m_Layer: 0
   m_Name: Skull
   m_TagString: Enemy
@@ -179,7 +179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1503dd0434044c649b02dce04e80e154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  current: 2
   onDeathEvent:
     m_PersistentCalls:
       m_Calls:
@@ -228,7 +227,6 @@ MonoBehaviour:
     type: 3}
   _projectileOrigin: {fileID: 9214545110174777239}
   _projectileOriginDistance: 0.75
-  _cooldown: 1.5
   _onFired:
     m_PersistentCalls:
       m_Calls: []
@@ -245,19 +243,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthBar: {fileID: 5025696261422442557}
---- !u!114 &5682527608083801377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8885532686460678695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38d567dce650d454e9b5fb3d0242dd17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  current: 1
 --- !u!114 &8855389310855670223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,6 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 6159160726468998790}
   - {fileID: 4879242734261612212}
   _installerPrefabs: []
   _autoRun: 1
@@ -290,6 +276,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveTowardsPlayer: 0
   _shootAtPlayer: 1
+--- !u!114 &6159160726468998790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885532686460678695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7f204aec1873140998867b96abbab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _settings:
+    MoveSpeed: 0
+    FireRate: 1.5
+    Health: 2
+    Alliance: 1
 --- !u!1001 &3155541367432920080
 PrefabInstance:
   m_ObjectHideFlags: 0

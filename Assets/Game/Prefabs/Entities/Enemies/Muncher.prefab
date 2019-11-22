@@ -117,9 +117,9 @@ GameObject:
   - component: {fileID: 5340341616226408158}
   - component: {fileID: 8617162696293536531}
   - component: {fileID: 3640833845983432849}
-  - component: {fileID: 5288702311220670568}
   - component: {fileID: 1311332172293160224}
   - component: {fileID: 6613916168801326766}
+  - component: {fileID: 7486695756699482522}
   m_Layer: 0
   m_Name: Muncher
   m_TagString: Enemy
@@ -192,7 +192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1503dd0434044c649b02dce04e80e154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  current: 1
   onDeathEvent:
     m_PersistentCalls:
       m_Calls:
@@ -252,7 +251,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 9158105507830680505}
   _animator: {fileID: 7920653697050326439}
-  _speed: 1.5
 --- !u!114 &8617162696293536531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd72583b17783ba4cb7553c23ae9f316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  _damage: 1
 --- !u!58 &3640833845983432849
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -282,19 +280,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &5288702311220670568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8885532686460678695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38d567dce650d454e9b5fb3d0242dd17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  current: 1
 --- !u!114 &1311332172293160224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 7486695756699482522}
   - {fileID: 6613916168801326766}
   _installerPrefabs: []
   _autoRun: 1
@@ -326,6 +312,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveTowardsPlayer: 1
+  _shootAtPlayer: 0
+--- !u!114 &7486695756699482522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885532686460678695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7f204aec1873140998867b96abbab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _settings:
+    MoveSpeed: 4
+    FireRate: 0
+    Health: 1
+    Alliance: 1
 --- !u!1001 &3155541367432920080
 PrefabInstance:
   m_ObjectHideFlags: 0
