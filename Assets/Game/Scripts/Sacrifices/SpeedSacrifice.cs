@@ -1,24 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SpeedSacrifice : SacrificeBehaviour
+public class SpeedSacrifice : MonoBehaviour, ISacrifice
 {
 	private Movement playerMovement;
 
-	protected void OnEnable()
+	public void OnApply()
 	{
-		var player = GameObject.Find("Player");
-
+		var player = GameObject.Find("Player")?.GetComponent<PlayerFacade>();
 		if (player)
 		{
 			playerMovement = player.GetComponent<Movement>();
-			playerMovement.SetSpeedMode(0.5f);
+			playerMovement.Speed.Current *= 0.5f;
 		}
 	}
 
-	// protected void OnDisable()
-	// {
-	// 	playerMovement.ResetSpeed();
-	// }
+	public void OnRemove()
+	{
+		throw new System.NotImplementedException();
+	}
+}
+
+public interface ISacrifice
+{
+	void OnApply();
+	void OnRemove();
 }

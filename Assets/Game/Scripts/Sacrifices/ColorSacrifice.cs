@@ -1,9 +1,16 @@
-public class ColorSacrifice : SacrificeBehaviour
+using UnityEngine;
+
+public class ColorSacrifice : MonoBehaviour, ISacrifice
 {
 	public const string OnEnableNotification = "ColorSacrifice.EnableNotification";
 
-	protected void OnEnable()
+	public void OnApply()
 	{
 		this.PostNotification(OnEnableNotification);
+	}
+
+	public void OnRemove()
+	{
+		throw new System.NotImplementedException();
 	}
 }

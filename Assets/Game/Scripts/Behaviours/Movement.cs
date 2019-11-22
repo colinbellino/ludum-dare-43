@@ -9,7 +9,9 @@ public class Movement : MonoBehaviour
 
 	private IInputState _inputState;
 	private EntitySettings _settings;
-	private float _currentSpeed;
+	public Speed Speed;
+
+	public static string SpeedWillChangeNotification = "SpeedWillChangeNotification";
 
 	[Inject]
 	public void Construct(IInputState inputState, EntitySettings settings)
@@ -17,7 +19,7 @@ public class Movement : MonoBehaviour
 		_inputState = inputState;
 		_settings = settings;
 
-		_currentSpeed = _settings.MoveSpeed;
+		Speed = new Speed(_settings.MoveSpeed);
 	}
 
 	private void Update()
@@ -33,7 +35,7 @@ public class Movement : MonoBehaviour
 
 	private void UpdateVelocity(Vector2 moveInput)
 	{
-		_rb.velocity = moveInput * _currentSpeed;
+		_rb.velocity = moveInput * Speed.Current;
 	}
 
 	private void UpdateAnimator(Vector2 moveInput)
@@ -59,19 +61,46 @@ public class Movement : MonoBehaviour
 			_animator.SetFloat("MoveY", moveInput.y);
 		}
 	}
+}
 
-	public void SetSpeedMode(float speed)
+public class Speed
+{
+	private float _current;
+
+	public float Current
 	{
-		MultiplySpeed(speed);
+		get => _current;
+		set => SetValue(value, true);
 	}
 
-	private void MultiplySpeed(float speed)
+	public Speed(float speed)
 	{
-		_currentSpeed *= speed;
+		_current = speed;
 	}
 
-	public void ResetSpeed()
+	private void SetValue(float value, bool allowExceptions)
 	{
-		_currentSpeed = _settings.MoveSpeed;
+		var oldValue = _current;
+		var newValue = value;
+
+		if (oldValue == value)
+		{
+			return;
+		}
+
+		if (allowExceptions)
+		{
+			var exc = new ValueChangeException(oldValue, value);
+			this.PostNotification("SpeedWillChangeNotification", exc);
+
+			newValue = Mathf.FloorToInt(exc.GetModifiedValue());
+
+			if (!exc.Toggle || newValue == oldValue)
+			{
+				return;
+			}
+		}
+
+		_current = newValue;
 	}
 }

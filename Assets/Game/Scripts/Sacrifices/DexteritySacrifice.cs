@@ -1,24 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class DexteritySacrifice : SacrificeBehaviour
+public class DexteritySacrifice : MonoBehaviour, ISacrifice
 {
-    private Shooter playerShooter;
+	private Shooter _playerShooter;
 
-    protected void OnEnable()
-    {
-        var player = GameObject.Find("Player");
+	public void OnApply()
+	{
+		var player = GameObject.Find("Player");
 
-        if (player)
-        {
-            playerShooter = player.GetComponent<Shooter>();
-            playerShooter.SetCooldownMode(true);
-        }
-    }
+		if (player)
+		{
+			_playerShooter = player.GetComponent<Shooter>();
+			_playerShooter.SetCooldownMode(true);
+		}
+	}
 
-//    protected void OnDisable()
-//    {
-//    	playerMovement.SetCooldownMode(false);
-//    }
+	public void OnRemove()
+	{
+		throw new System.NotImplementedException();
+	}
 }
