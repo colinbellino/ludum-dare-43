@@ -1,60 +1,32 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using RotaryHeart.Lib.SerializableDictionary;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 using Zenject;
 
 public class SacrificesManager : MonoBehaviour
 {
+	// TODO: inject this
+	[SerializeField] private GameObject sacrificeIconUiItemPrefab;
+	[SerializeField] private GameObject selectionUiItemPrefab;
+	[SerializeField] private GameObject sacrificeItemPrefab;
+
+	[SerializeField] private Transform sacrificeIconsUiContainer;
+	[SerializeField] private Transform selectionUiContainer;
+	[SerializeField] private List<Transform> sacrificeSpawnPoints;
+	[SerializeField] private UnityEvent onChooseSacrifice;
+
+	private List<Sacrifice> _choices = new List<Sacrifice>();
+	private GameSettings _settings;
+	private SacrificeDictionary _sacrificesDictionary = new SacrificeDictionary();
+
 	public const string OnChooseSacrificeNotification = "SacrificesManager.ChooseSacrificeNotification";
-
-	[SerializeField][HideInInspector]
-	private SacrificeDictionary sacrificesDictionary = new SacrificeDictionary();
-
-	[HideInInspector]
-	public List<Sacrifice> choices = new List<Sacrifice>();
-
-	[Header("Sacrifice Icons UI")]
-	[SerializeField]
-	private Transform sacrificeIconsUiContainer;
-
-	[SerializeField]
-	private GameObject sacrificeIconUiItemPrefab;
-
-	[Header("Selection UI")]
-	[SerializeField]
-	private Transform selectionUiContainer;
-
-	[SerializeField]
-	private GameObject selectionUiItemPrefab;
-
-	[Header("Debug UI")]
-	[SerializeField]
-	private Transform debugUiContainer;
-
-	[SerializeField]
-	private GameObject debugUiItemPrefab;
-
-	[Header("Sacrifice Item")]
-	[SerializeField]
-	private GameObject sacrificeItemPrefab;
-
-	[SerializeField]
-	private List<Transform> sacrificeSpawnPoints;
-
-	[SerializeField]
-	private UnityEvent onChooseSacrifice;
-
-	private GameSettings settings;
 
 	[Inject]
 	public void Construct(GameSettings settings)
 	{
-		this.settings = settings;
+		_settings = settings;
 	}
 
 	private void OnEnable()
@@ -73,15 +45,13 @@ public class SacrificesManager : MonoBehaviour
 
 	private void Start()
 	{
-		foreach (var sacrifice in settings.sacrifices)
+		foreach (var sacrifice in _settings.sacrifices)
 		{
-			sacrificesDictionary.Add(sacrifice.id, false);
+			_sacrificesDictionary.Add(sacrifice.id, false);
 		}
 
-		RefreshSelectionUI();
-		RefreshDebugUI();
-
-		ToggleSacrificeUI(false);
+		RefreshActiveSacrificesUI();
+		SetSacrificeUIVisibility(false);
 	}
 
 	private void OnChooseSacrifice(object sender, object args)
@@ -93,22 +63,22 @@ public class SacrificesManager : MonoBehaviour
 
 	private void OnStartSacrifice(object sender, object args)
 	{
-		this.choices = settings.sacrifices
+		_choices = _settings.sacrifices
 			.Where(FilterAvailableSacrifice)
 			.Shuffle(new System.Random())
 			.Take(2)
 			.ToList();
 
-		RefreshSelectionUI();
-		ToggleSacrificeUI(true);
-		ToggleSacrificeItem(true);
+		RefreshActiveSacrificesUI();
+		SetSacrificeUIVisibility(true);
+		ShowSacrificeChoices();
 	}
 
-	private void ToggleSacrificeItem(bool toggle)
+	private void ShowSacrificeChoices()
 	{
-		for (int i = 0; i < choices.Count; i++)
+		for (int i = 0; i < _choices.Count; i++)
 		{
-			var sacrifice = choices[i];
+			var sacrifice = _choices[i];
 
 			var instance = Instantiate(sacrificeItemPrefab);
 			instance.name = $"Sacrifice (choice): {sacrifice.label}";
@@ -124,8 +94,7 @@ public class SacrificesManager : MonoBehaviour
 
 	private bool FilterAvailableSacrifice(Sacrifice sacrifice)
 	{
-		bool isActive;
-		if (sacrificesDictionary.TryGetValue(sacrifice.id, out isActive))
+		if (_sacrificesDictionary.TryGetValue(sacrifice.id, out bool isActive))
 		{
 			return sacrifice.prefab && !isActive;
 		}
@@ -135,54 +104,40 @@ public class SacrificesManager : MonoBehaviour
 
 	private void OnStartCombat(object sender, object args)
 	{
-		ToggleSacrificeUI(false);
+		SetSacrificeUIVisibility(false);
 	}
 
-	private void ToggleSacrificeUI(bool value)
+	private void SetSacrificeUIVisibility(bool value)
 	{
 		selectionUiContainer.gameObject.SetActive(value);
 	}
 
-	private void RefreshSelectionUI()
+	private void RefreshActiveSacrificesUI()
 	{
 		foreach (Transform child in selectionUiContainer)
 		{
-			GameObject.Destroy(child.gameObject);
+			Destroy(child.gameObject);
 		}
 
-		foreach (var sacrifice in choices)
+		foreach (var sacrifice in _choices)
 		{
-			SpawnSelectionUIItem(sacrifice);
-		}
-	}
-
-	private void RefreshDebugUI()
-	{
-		foreach (Transform child in debugUiContainer)
-		{
-			GameObject.Destroy(child.gameObject);
-		}
-
-		foreach (var keyValue in sacrificesDictionary)
-		{
-			SpawnDebugUIItem(keyValue);
+			SpawnActiveSacrificeUI(sacrifice);
 		}
 	}
 
 	private void ToggleSacrifice(string key, bool value)
 	{
-		sacrificesDictionary[key] = value;
-		RefreshDebugUI();
+		_sacrificesDictionary[key] = value;
 
 		if (value)
 		{
-			SpawnSacrificeActivator(key);
+			SpawnSacrificeEffect(key);
 		}
 	}
 
-	private void SpawnSacrificeActivator(string key)
+	private void SpawnSacrificeEffect(string key)
 	{
-		var existingSacrifice = settings.sacrifices.Find(s => s.id == key);
+		var existingSacrifice = _settings.sacrifices.Find(s => s.id == key);
 		if (!existingSacrifice)
 		{
 			Debug.LogWarning("Couln't find sacrifice: " + key);
@@ -190,17 +145,16 @@ public class SacrificesManager : MonoBehaviour
 		}
 
 		var instance = Instantiate(existingSacrifice.prefab);
+		instance.name = $"Sacrifice: {existingSacrifice.label}";
 		var sacrifice = instance.GetComponent<ISacrifice>();
 		sacrifice.OnApply();
-		instance.name = $"Sacrifice: {existingSacrifice.label}";
 
 		SpawnSacrificeIconUIItem(existingSacrifice);
-
 	}
 
 	private void SpawnSacrificeIconUIItem(Sacrifice sacrifice)
 	{
-		var instance = GameObject.Instantiate(sacrificeIconUiItemPrefab, sacrificeIconsUiContainer);
+		var instance = Instantiate(sacrificeIconUiItemPrefab, sacrificeIconsUiContainer);
 		instance.name = sacrifice.id;
 
 		var ui = instance.GetComponent<SacrificeItemUI>();
@@ -211,35 +165,15 @@ public class SacrificesManager : MonoBehaviour
 		}
 	}
 
-	private void SpawnSelectionUIItem(Sacrifice sacrifice)
+	private void SpawnActiveSacrificeUI(Sacrifice sacrifice)
 	{
-		var instance = GameObject.Instantiate(selectionUiItemPrefab, selectionUiContainer);
+		var instance = Instantiate(selectionUiItemPrefab, selectionUiContainer);
 		instance.name = sacrifice.id;
 
 		var ui = instance.GetComponent<SacrificeItemUI>();
 		if (ui)
 		{
 			ui.image.sprite = sacrifice.image;
-			ui.label.text = sacrifice.label;
-			// Finish the game loop
-			ui.button.onClick.AddListener(() =>
-			{
-				this.PostNotification(OnChooseSacrificeNotification, sacrifice);
-			});
-		}
-	}
-
-	private void SpawnDebugUIItem(KeyValuePair<string, bool> keyValue)
-	{
-		var instance = GameObject.Instantiate(debugUiItemPrefab, debugUiContainer);
-		instance.name = keyValue.Key;
-
-		var ui = instance.GetComponent<SacrificeDebugItemUI>();
-		if (ui)
-		{
-			ui.toggle.isOn = keyValue.Value;
-			ui.toggle.onValueChanged.AddListener((value) => { ToggleSacrifice(keyValue.Key, value); });
-			ui.label.text = keyValue.Key;
 		}
 	}
 }
