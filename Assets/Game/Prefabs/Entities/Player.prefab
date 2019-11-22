@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 1903912066}
   - component: {fileID: 1903912067}
   - component: {fileID: 9003069737278429286}
+  - component: {fileID: 8329127435378289129}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -224,7 +225,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 2310778878474937664}
   _animator: {fileID: 3690120190048690759}
-  _speed: 4
 --- !u!114 &3492163957998983327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +241,6 @@ MonoBehaviour:
     type: 3}
   _projectileOrigin: {fileID: 7263578517956478052}
   _projectileOriginDistance: 0.8
-  _cooldown: 0.4
   _onFired:
     m_PersistentCalls:
       m_Calls:
@@ -269,7 +268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1503dd0434044c649b02dce04e80e154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  current: 3
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -414,6 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 8329127435378289129}
   - {fileID: 1903912067}
   _installerPrefabs: []
   _autoRun: 1
@@ -442,3 +441,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 214c8173767d16f46ae3fc73e2808af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8329127435378289129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7712446667477971421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7f204aec1873140998867b96abbab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _settings:
+    MoveSpeed: 6
+    FireRate: 0.4
+    Health: 3

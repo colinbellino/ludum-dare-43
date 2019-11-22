@@ -15,7 +15,7 @@ public class EnemyHealthBar : MonoBehaviour
 
 	private float CalculateHealthPercent()
 	{
-		return (float) _health.current / _health.max;
+		return (float) _health.Current / _health.Max;
 	}
 
 	public void UpdateLifePercent()

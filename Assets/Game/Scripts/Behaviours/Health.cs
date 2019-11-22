@@ -1,29 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 public class Health : MonoBehaviour
 {
 	public const string OnDeathNotification = "Health.OnDeathNotification";
 	public const string OnHitNotification = "Health.OnHitNotification";
 
-	public int current = 3;
-	public int max { get; private set; }
-	private int defaultMax;
+	public int Current { get; private set; }
+	public int Max { get; private set; }
+
 	private const int min = 0;
-
-	[SerializeField]
-	private UnityEvent onDeathEvent;
-
-	[SerializeField]
-	private UnityEvent onHit;
-
-	[SerializeField]
-	private UnityEvent onStartup;
-
-	[SerializeField] private float invulnerabilityFrameCoolDown = 0.3f;
+	private int defaultMax;
 	private float iFrameStart;
+
+	[SerializeField] private UnityEvent onDeathEvent;
+	[SerializeField] private UnityEvent onHit;
+	[SerializeField] private UnityEvent onStartup;
+	[SerializeField] private float invulnerabilityFrameCoolDown = 0.3f;
+
+	[Inject]
+	public void Construct(EntitySettings settings)
+	{
+		Current = settings.Health;
+	}
 
 	private void OnEnable()
 	{
@@ -45,8 +45,8 @@ public class Health : MonoBehaviour
 	private void Start()
 	{
 		iFrameStart = Time.time;
-		max = current;
-		defaultMax = current;
+		Max = Current;
+		defaultMax = Current;
 		onStartup.Invoke();
 	}
 
@@ -54,35 +54,35 @@ public class Health : MonoBehaviour
 	{
 		if (!IsIFrame())
 		{
-			ClampHealth(current - damage);
+			ClampHealth(Current - damage);
 
-			if (current <= 0)
+			if (Current <= 0)
 			{
 				onDeathEvent.Invoke();
 				this.PostNotification(OnDeathNotification);
-			}	
+			}
 		}
 	}
 
 	public void SetMaxHealth(int value)
 	{
-		max = value;
-		ClampHealth(current);
+		Max = value;
+		ClampHealth(Current);
 	}
 
 	public void ResetToMaxDefaultHealth()
 	{
-		max = defaultMax;
+		Max = defaultMax;
 	}
 
 	public void DestroyItself()
 	{
-		GameObject.Destroy(gameObject);
+		Destroy(gameObject);
 	}
 
 	private void ClampHealth(int value)
 	{
-		current = Mathf.Clamp(value, min, max);
+		Current = Mathf.Clamp(value, min, Max);
 	}
 
 	private bool IsIFrame()

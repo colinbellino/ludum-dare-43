@@ -8,22 +8,23 @@ public class Shooter : MonoBehaviour
 	[SerializeField][FormerlySerializedAs("projectilePrefab")] private GameObject _projectilePrefab;
 	[SerializeField][FormerlySerializedAs("projectileOrigin")] private Transform _projectileOrigin;
 	[SerializeField][FormerlySerializedAs("projectileOriginDistance")] private float _projectileOriginDistance = 0.8f;
-	[SerializeField][FormerlySerializedAs("cooldown")] private float _cooldown = 0.3f;
 	[SerializeField][FormerlySerializedAs("onFire")] private UnityEvent _onFired;
 
 	private IInputState _inputState;
-	private float defaultCooldown;
-	private float fireTimestamp;
+	private float _defaultCooldown;
+	private float _fireTimestamp;
+	private float _fireRate;
 
 	[Inject]
-	public void Construct(IInputState inputState)
+	public void Construct(IInputState inputState, EntitySettings settings)
 	{
 		_inputState = inputState;
+		_fireRate = settings.FireRate;
 	}
 
 	private void Start()
 	{
-		defaultCooldown = _cooldown;
+		_defaultCooldown = _fireRate;
 	}
 
 	private void Update()
@@ -33,10 +34,10 @@ public class Shooter : MonoBehaviour
 		{
 			_projectileOrigin.localPosition = fireInput * _projectileOriginDistance;
 
-			if (Time.time > fireTimestamp)
+			if (Time.time > _fireTimestamp)
 			{
 				SpawnProjectile(fireInput);
-				fireTimestamp = Time.time + _cooldown;
+				_fireTimestamp = Time.time + _fireRate;
 				_onFired.Invoke();
 			}
 		}
@@ -62,16 +63,16 @@ public class Shooter : MonoBehaviour
 	{
 		if (value)
 		{
-			SetCooldownValue(_cooldown * 2);
+			SetCooldownValue(_fireRate * 2);
 		}
 		else
 		{
-			SetCooldownValue(defaultCooldown);
+			SetCooldownValue(_defaultCooldown);
 		}
 	}
 
 	private void SetCooldownValue(float value)
 	{
-		_cooldown = value;
+		_fireRate = value;
 	}
 }

@@ -1,18 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthBarUI : MonoBehaviour
 {
-	[SerializeField]
-	private List<Image> images;
-
-	[SerializeField]
-	private Sprite emptySprite;
-
-	[SerializeField]
-	private Sprite fullSprite;
+	[SerializeField] private List<Image> images;
+	[SerializeField] private Sprite emptySprite;
+	[SerializeField] private Sprite fullSprite;
 
 	private Health playerHealth;
 
@@ -28,8 +22,8 @@ public class HealthBarUI : MonoBehaviour
 	{
 		for (int i = 0; i < images.Count; i++)
 		{
-			images[i].enabled = playerHealth.max > i;
-			images[i].sprite = playerHealth.current > i ? fullSprite : emptySprite;
+			images[i].enabled = playerHealth.Max > i;
+			images[i].sprite = playerHealth.Current > i ? fullSprite : emptySprite;
 		}
 	}
 
