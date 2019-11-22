@@ -110,8 +110,8 @@ public class SacrificesManager : MonoBehaviour
 		{
 			var sacrifice = choices[i];
 
-			var instance = GameObject.Instantiate(sacrificeItemPrefab);
-			instance.name = sacrifice.id;
+			var instance = Instantiate(sacrificeItemPrefab);
+			instance.name = $"Sacrifice (choice): {sacrifice.label}";
 			instance.transform.position = sacrificeSpawnPoints[i].transform.position;
 
 			var pedestal = instance.GetComponent<SacrificePedestal>();
@@ -182,16 +182,20 @@ public class SacrificesManager : MonoBehaviour
 
 	private void SpawnSacrificeActivator(string key)
 	{
-		var sacrifice = settings.sacrifices.Find(s => s.id == key);
-		if (!sacrifice)
+		var existingSacrifice = settings.sacrifices.Find(s => s.id == key);
+		if (!existingSacrifice)
 		{
 			Debug.LogWarning("Couln't find sacrifice: " + key);
 			return;
 		}
 
-		var instance = GameObject.Instantiate(sacrifice.prefab);
-		instance.name = $"Sacrifice activator: {sacrifice.label}";
-		SpawnSacrificeIconUIItem(sacrifice);
+		var instance = Instantiate(existingSacrifice.prefab);
+		var sacrifice = instance.GetComponent<ISacrifice>();
+		sacrifice.OnApply();
+		instance.name = $"Sacrifice: {existingSacrifice.label}";
+
+		SpawnSacrificeIconUIItem(existingSacrifice);
+
 	}
 
 	private void SpawnSacrificeIconUIItem(Sacrifice sacrifice)

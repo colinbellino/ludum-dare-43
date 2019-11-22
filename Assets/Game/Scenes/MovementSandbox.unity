@@ -2658,8 +2658,7 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 546571222410043478, guid: cd7ab19eb8b261e4593c21a9597d856c, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd7ab19eb8b261e4593c21a9597d856c, type: 3}
 --- !u!1839735485 &7989961360700957516
 Tilemap:

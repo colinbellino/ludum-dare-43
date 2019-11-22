@@ -146,7 +146,6 @@ GameObject:
   - component: {fileID: 3492163957998983327}
   - component: {fileID: 300368964092380891}
   - component: {fileID: 3187467313634084598}
-  - component: {fileID: 546571222410043478}
   - component: {fileID: 1903912066}
   - component: {fileID: 1903912067}
   - component: {fileID: 9003069737278429286}
@@ -385,19 +384,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &546571222410043478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7712446667477971421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38d567dce650d454e9b5fb3d0242dd17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  current: 0
 --- !u!114 &1903912066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,3 +443,4 @@ MonoBehaviour:
     MoveSpeed: 6
     FireRate: 0.4
     Health: 3
+    Alliance: 0

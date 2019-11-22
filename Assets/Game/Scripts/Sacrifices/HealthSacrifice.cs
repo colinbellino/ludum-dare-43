@@ -1,24 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class HealthSacrifice : SacrificeBehaviour
+public class HealthSacrifice : MonoBehaviour, ISacrifice
 {
-	private Health playerHealth;
+	private Health _playerHealth;
 
-	protected void OnEnable()
+	public void OnApply()
 	{
 		var player = GameObject.Find("Player");
-
 		if (player)
 		{
-			playerHealth = player.GetComponent<Health>();
-			playerHealth.SetMaxHealth(2);
+			_playerHealth = player.GetComponent<Health>();
+			_playerHealth.SetMaxHealth(2);
 		}
 	}
 
-	// protected void OnDisable()
-	// {
-	// 	playerHealth.ResetToMaxDefaultHealth();
-	// }
+	public void OnRemove()
+	{
+		_playerHealth.ResetToMaxDefaultHealth();
+	}
 }
