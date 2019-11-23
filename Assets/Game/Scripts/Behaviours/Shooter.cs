@@ -15,13 +15,15 @@ public class Shooter : MonoBehaviour
 	private Stats _stats;
 	private float _fireTimestamp;
 	private ProjectileFacade.Factory _projectileFactory;
+	private Alliances _alliances;
 
 	[Inject]
-	public void Construct(IInputState inputState, Stats stats, ProjectileFacade.Factory projectileFactory)
+	public void Construct(IInputState inputState, Stats stats, ProjectileFacade.Factory projectileFactory, EntitySettings settings)
 	{
 		_inputState = inputState;
 		_stats = stats;
 		_projectileFactory = projectileFactory;
+		_alliances = settings.Alliance;
 	}
 
 	private void Update()
@@ -33,7 +35,13 @@ public class Shooter : MonoBehaviour
 
 			if (Time.time > _fireTimestamp)
 			{
-				var projectileSetting = new ProjectileSettings {InitialPositions = _projectileOrigin.position, Direction = fireInput, Stats = _stats};
+				var projectileSetting = new ProjectileSettings
+				{
+					InitialPositions = _projectileOrigin.position,
+					Direction = fireInput,
+					Stats = _stats,
+					Alliances = _alliances,
+				};
 				_fireTimestamp = Time.time + _stats[StatTypes.FireRate] / 10f;
 				_onFired.Invoke();
 				_projectileFactory.Create(projectileSetting);
@@ -47,4 +55,5 @@ public class ProjectileSettings
 	public Vector3 InitialPositions;
 	public Vector2 Direction;
 	public Stats Stats;
+	public Alliances Alliances;
 }
