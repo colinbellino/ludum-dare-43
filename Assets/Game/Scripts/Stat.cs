@@ -69,5 +69,7 @@ public enum StatTypes
 	FireRate,
 	Health,
 	MaxHealth,
+	ShotSpeed,
+	Damage,
 	Count,
 }

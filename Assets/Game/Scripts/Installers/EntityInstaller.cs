@@ -15,6 +15,8 @@ public class EntityInstaller : MonoInstaller
 		stats[StatTypes.Health] = _settings.Health;
 		stats[StatTypes.MaxHealth] = _settings.Health;
 		stats[StatTypes.FireRate] = _settings.FireRate;
+		stats[StatTypes.Damage] = _settings.Damage;
+		stats[StatTypes.ShotSpeed] = _settings.ShotSpeed;
 
 		Container.BindInstance(stats);
 	}
@@ -26,5 +28,7 @@ public class EntitySettings
 	public int MoveSpeed;
 	public int FireRate;
 	public int Health;
+	public int Damage;
+	public int ShotSpeed;
 	public Alliances Alliance;
 }

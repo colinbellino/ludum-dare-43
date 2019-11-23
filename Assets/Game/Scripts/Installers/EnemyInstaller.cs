@@ -15,8 +15,8 @@ public class EnemyInstaller : MonoInstaller
 		Container.BindInterfacesAndSelfTo<EnemyFacade>().FromComponentOnRoot();
 		Container.Bind<Transform>().FromComponentOnRoot();
 		Container.Bind<GameObject>().FromInstance(gameObject);
-		Container.BindInterfacesTo<EnemySpawnHandler>().AsSingle();
-		Container.BindInstance(_initialPosition).WhenInjectedInto<EnemySpawnHandler>();
+		Container.BindInterfacesTo<EntityInitialPosition>().AsSingle();
+		Container.BindInstance(_initialPosition).WhenInjectedInto<EntityInitialPosition>();
 
 		InstallBrain();
 	}

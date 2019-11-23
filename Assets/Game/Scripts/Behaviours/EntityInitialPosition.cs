@@ -1,12 +1,12 @@
 using UnityEngine;
 using Zenject;
 
-public class EnemySpawnHandler : IInitializable
+public class EntityInitialPosition : IInitializable
 {
 	readonly Transform _transform;
 	readonly Vector3 _initialPosition;
 
-	public EnemySpawnHandler(
+	public EntityInitialPosition(
 		Transform transform,
 		Vector3 initialPosition
 	)
