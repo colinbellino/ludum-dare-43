@@ -7,7 +7,8 @@ public enum Enemies
 {
 	Skull,
 	TargetDummy,
-	Muncher
+	Muncher,
+	Bloop,
 }
 
 public class EnemySpawnPoint : MonoBehaviour

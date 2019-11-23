@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4562372555167893947}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.035, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8885532686460678699}
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: -1917788409
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: 737e8dbf823e2e243ad9e77758b4eab6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bc7108a5ebfa56948bd15ef2c836cf82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -90,7 +90,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4562372555167893947}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 0c18bed7cff47034e860b4cc4ac5985c, type: 2}
   m_CullingMode: 0
@@ -101,6 +101,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &7638191635189524820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6654903782536717470}
+  m_Layer: 0
+  m_Name: Projectile Origin
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6654903782536717470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7638191635189524820}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8885532686460678699}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8885532686460678695
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,8 +150,9 @@ GameObject:
   - component: {fileID: 1311332172293160224}
   - component: {fileID: 6613916168801326766}
   - component: {fileID: 7486695756699482522}
+  - component: {fileID: -5798798941232232630}
   m_Layer: 0
-  m_Name: Muncher
+  m_Name: Bloop
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,6 +171,7 @@ Transform:
   m_Children:
   - {fileID: 2252048624942971350}
   - {fileID: 8072152633963341867}
+  - {fileID: 6654903782536717470}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -311,9 +343,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bece6560d50104457aafe0a4eccf2b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveTowardsPlayer: 1
-  _shootAtPlayer: 0
-  _moveDumblyAtPlayer: 0
+  _moveTowardsPlayer: 0
+  _shootAtPlayer: 1
+  _moveDumblyAtPlayer: 1
 --- !u!114 &7486695756699482522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,12 +359,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings:
-    MoveSpeed: 4
-    FireRate: 0
+    MoveSpeed: 5
+    FireRate: 8
     Health: 1
-    Damage: 1
-    ShotSpeed: 2
+    Damage: 2
+    ShotSpeed: 3
     Alliance: 1
+--- !u!114 &-5798798941232232630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885532686460678695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac59975632f77e746a960a2ef59810d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectileOrigin: {fileID: 6654903782536717470}
+  _projectileOriginDistance: 1.2
+  _onFired:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &3155541367432920080
 PrefabInstance:
   m_ObjectHideFlags: 0
