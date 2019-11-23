@@ -1,5 +1,5 @@
 public interface IEntity
 {
 	Alliances Alliance { get; }
-	EntityStats Stats { get; }
+	Stats Stats { get; }
 }

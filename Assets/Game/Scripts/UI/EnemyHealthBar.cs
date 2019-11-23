@@ -5,7 +5,7 @@ public class EnemyHealthBar : MonoBehaviour
 {
 	[SerializeField] private GameObject _healthBarForeground;
 
-	private EntityStats _stats;
+	private Stats _stats;
 
 	private void Start()
 	{
@@ -24,6 +24,6 @@ public class EnemyHealthBar : MonoBehaviour
 
 	private float CalculateHealthPercent()
 	{
-		return (float) _stats.Health.Current / _stats.MaxHealth.Current;
+		return (float) _stats[StatTypes.Health] / (float) _stats[StatTypes.MaxHealth];
 	}
 }

@@ -2,14 +2,13 @@
 
 public class DexteritySacrifice : MonoBehaviour, ISacrifice
 {
-	private EntityStats _stats;
-
 	public void OnApply()
 	{
-		_stats = GameObject.Find("Player")?.GetComponent<IEntity>()?.Stats;
-		if (_stats != null)
+		// TODO: Inject the player instead ?
+		var stats = GameObject.Find("Player")?.GetComponent<IEntity>()?.Stats;
+		if (stats != null)
 		{
-			_stats.FireRate.Current /= 2;
+			stats[StatTypes.FireRate] /= 2;
 		}
 	}
 

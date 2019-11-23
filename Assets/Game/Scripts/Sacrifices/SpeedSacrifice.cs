@@ -4,10 +4,10 @@ public class SpeedSacrifice : MonoBehaviour, ISacrifice
 {
 	public void OnApply()
 	{
-		var player = GameObject.Find("Player")?.GetComponent<PlayerFacade>();
-		if (player)
+		var stats = GameObject.Find("Player")?.GetComponent<PlayerFacade>()?.Stats;
+		if (stats != null)
 		{
-			player.Stats.MoveSpeed.Current /= 2;
+			stats[StatTypes.MoveSpeed] /= 2;
 		}
 	}
 

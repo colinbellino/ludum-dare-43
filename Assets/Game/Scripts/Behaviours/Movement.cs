@@ -8,10 +8,10 @@ public class Movement : MonoBehaviour
 	[SerializeField][FormerlySerializedAs("animator")] private Animator _animator;
 
 	private IInputState _inputState;
-	private EntityStats _stats;
+	private Stats _stats;
 
 	[Inject]
-	public void Construct(IInputState inputState, EntityStats stats)
+	public void Construct(IInputState inputState, Stats stats)
 	{
 		_inputState = inputState;
 		_stats = stats;
@@ -30,7 +30,7 @@ public class Movement : MonoBehaviour
 
 	private void UpdateVelocity(Vector2 moveInput)
 	{
-		_rb.velocity = moveInput * _stats.MoveSpeed.Current;
+		_rb.velocity = moveInput * _stats[StatTypes.MoveSpeed];
 	}
 
 	private void UpdateAnimator(Vector2 moveInput)
