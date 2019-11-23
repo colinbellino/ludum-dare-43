@@ -9,6 +9,7 @@ public class GameSettings : ScriptableObject
 	public List<SacrificeData> sacrifices = new List<SacrificeData>();
 	public List<GameObject> enemyPrefabs = new List<GameObject>();
 	public ProjectileFacade projectilesPrefab;
+	public List<Sprite> projectilesSprites = new List<Sprite>();
 
 	public PlayerSettings PlayerSettings;
 }

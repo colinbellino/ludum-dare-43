@@ -200,12 +200,12 @@ PrefabInstance:
     - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
         type: 3}
       propertyPath: _settings.Damage
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
         type: 3}
       propertyPath: _settings.ShotSpeed
-      value: 4
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
         type: 3}
@@ -229,7 +229,7 @@ PrefabInstance:
     - target: {fileID: 2198966567706891888, guid: 3c1560c679e910c489a4a94251dd3a65,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4000150484818924683, guid: 3c1560c679e910c489a4a94251dd3a65,
         type: 3}

@@ -4,18 +4,22 @@ using Zenject;
 public class ProjectileFacade : MonoBehaviour
 {
 	[SerializeField] private Rigidbody2D _rigidbody;
+	[SerializeField] private SpriteRenderer _spriteRenderer;
+
 	private Vector2 _direction;
 	private int _shotSpeed;
-	private int _shotDamage;
-	private Alliances _alliances = Alliances.Ally;
+	private int _damage;
+	private Alliances _alliances;
 
+	public SpriteRenderer SpriteRenderer => _spriteRenderer;
 
 	[Inject]
 	public void Construct(ProjectileSettings projectileSettings)
 	{
-		_shotDamage = projectileSettings.Stats[StatTypes.Damage];
+		_damage = projectileSettings.Stats[StatTypes.Damage];
 		_shotSpeed = projectileSettings.Stats[StatTypes.ShotSpeed];
 		_direction = projectileSettings.Direction;
+		_alliances = projectileSettings.Alliances;
 	}
 
 	private void Update()
@@ -35,7 +39,7 @@ public class ProjectileFacade : MonoBehaviour
 		var targetHealth = collider.GetComponent<Health>();
 		if (targetHealth)
 		{
-			collider.gameObject.PostNotification(Health.OnHitNotification, _shotDamage);
+			collider.gameObject.PostNotification(Health.OnHitNotification, _damage);
 		}
 
 		GameObject.Destroy(gameObject);
