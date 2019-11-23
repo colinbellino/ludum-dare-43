@@ -11,14 +11,14 @@ public class Shooter : MonoBehaviour
 	[SerializeField][FormerlySerializedAs("onFire")] private UnityEvent _onFired;
 
 	private IInputState _inputState;
+	private Stats _stats;
 	private float _fireTimestamp;
-	private float _fireRate;
 
 	[Inject]
-	public void Construct(IInputState inputState, EntitySettings settings)
+	public void Construct(IInputState inputState, Stats stats)
 	{
 		_inputState = inputState;
-		_fireRate = settings.FireRate;
+		_stats = stats;
 	}
 
 	private void Update()
@@ -31,7 +31,7 @@ public class Shooter : MonoBehaviour
 			if (Time.time > _fireTimestamp)
 			{
 				SpawnProjectile(fireInput);
-				_fireTimestamp = Time.time + _fireRate / 10f;
+				_fireTimestamp = Time.time + _stats[StatTypes.FireRate] / 10f;
 				_onFired.Invoke();
 			}
 		}

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Zenject;
 
 public class SpeedSacrifice : MonoBehaviour, ISacrifice
 {
@@ -15,10 +16,4 @@ public class SpeedSacrifice : MonoBehaviour, ISacrifice
 	{
 		throw new System.NotImplementedException();
 	}
-}
-
-public interface ISacrifice
-{
-	void OnApply();
-	void OnRemove();
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameSettings : ScriptableObject
 {
 	public List<GameObject> levels = new List<GameObject>();
-	public List<Sacrifice> sacrifices = new List<Sacrifice>();
+	public List<SacrificeData> sacrifices = new List<SacrificeData>();
 	public List<GameObject> enemyPrefabs = new List<GameObject>();
 
 	public PlayerSettings PlayerSettings;

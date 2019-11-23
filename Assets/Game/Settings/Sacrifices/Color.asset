@@ -16,4 +16,3 @@ MonoBehaviour:
   label: Color
   image: {fileID: 21300000, guid: e48e36b4c26aa694cb5c5dd5306f25ad, type: 3}
   prefab: {fileID: 8868004863643852045, guid: 5cb6bb00b70d398419a019ceabbe5254, type: 3}
-  isImplemented: 0

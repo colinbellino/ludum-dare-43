@@ -8,7 +8,7 @@ public class EnemyInstaller : MonoInstaller
 	[SerializeField] private bool _shootAtPlayer;
 
 	[Inject] private Vector3 _initialPosition;
-	[Inject] private GameManager _gameManager;
+	[Inject] private PlayerFacade _player;
 
 	public override void InstallBindings()
 	{
@@ -23,7 +23,7 @@ public class EnemyInstaller : MonoInstaller
 
 	private void InstallBrain()
 	{
-		Container.Bind<ITarget>().FromInstance(_gameManager.Player);
+		Container.Bind<ITarget>().FromInstance(_player);
 		Container.Bind<IInputState>().To<InputState>().AsSingle();
 
 		if (_moveTowardsPlayer)
