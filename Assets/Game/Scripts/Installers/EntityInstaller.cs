@@ -10,14 +10,12 @@ public class EntityInstaller : MonoInstaller
 	{
 		Container.BindInstance(_settings);
 
-		// TODO: Just fucking do this already: https://github.com/cbellino/unity-tactical-rpg-battle-system/blob/4e836db0920945cb0cfc71eb83bf9dd47ac28caf/Assets/Scripts/Tactical/Actor/Component/Stats.cs
-		var stats = new EntityStats
-		{
-			MoveSpeed = new Stat(Stats.MoveSpeed, _settings.MoveSpeed),
-				Health = new Stat(Stats.Health, _settings.Health),
-				MaxHealth = new Stat(Stats.MaxHealth, _settings.Health),
-				FireRate = new Stat(Stats.FireRate, _settings.FireRate),
-		};
+		var stats = new Stats();
+		stats[StatTypes.MoveSpeed] = _settings.MoveSpeed;
+		stats[StatTypes.Health] = _settings.Health;
+		stats[StatTypes.MaxHealth] = _settings.Health;
+		stats[StatTypes.FireRate] = _settings.FireRate;
+
 		Container.BindInstance(stats);
 	}
 }
@@ -29,12 +27,4 @@ public class EntitySettings
 	public int FireRate;
 	public int Health;
 	public Alliances Alliance;
-}
-
-public class EntityStats
-{
-	public Stat MoveSpeed;
-	public Stat Health;
-	public Stat MaxHealth;
-	public Stat FireRate;
 }

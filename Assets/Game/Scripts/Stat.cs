@@ -1,27 +1,22 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Stat
+public class Stats
 {
-	private int _current;
+	private static readonly Dictionary<StatTypes, string> _willChangeNotifications = new Dictionary<StatTypes, string>();
+	private static readonly Dictionary<StatTypes, string> _didChangeNotifications = new Dictionary<StatTypes, string>();
 
-	public Stats Name { get; }
-	public int Current
+	public int this [StatTypes s]
 	{
-		get => _current;
-		set => SetValue(value, true);
+		get { return _data[(int) s]; }
+		set { SetValue(s, value, true); }
 	}
 
-	public Stat(Stats name, int value)
-	{
-		Name = name;
-		_current = value;
-	}
+	private readonly int[] _data = new int[(int) StatTypes.Count];
 
-	private void SetValue(int value, bool allowExceptions)
+	public void SetValue(StatTypes type, int value, bool allowExceptions)
 	{
-		var oldValue = _current;
-		var newValue = value;
-
+		int oldValue = this [type];
 		if (oldValue == value)
 		{
 			return;
@@ -29,27 +24,50 @@ public class Stat
 
 		if (allowExceptions)
 		{
+			// Allow exceptions to the rule here
 			var exc = new ValueChangeException(oldValue, value);
-			this.PostNotification(WillChangeNotification(Name), exc);
 
-			newValue = Mathf.FloorToInt(exc.GetModifiedValue());
+			// The notification is unique per stat type
+			this.PostNotification(WillChangeNotification(type), exc);
 
-			if (!exc.Toggle || newValue == oldValue)
+			// Did anything modify the value?
+			value = Mathf.FloorToInt(exc.GetModifiedValue());
+
+			// Did something nullify the change?
+			if (!exc.Toggle || value == oldValue)
 			{
 				return;
 			}
 		}
 
-		_current = newValue;
+		_data[(int) type] = value;
+		this.PostNotification(DidChangeNotification(type), oldValue);
 	}
 
-	public string WillChangeNotification(Stats type) => $"Stat.{type}WillChange";
+	public static string WillChangeNotification(StatTypes type)
+	{
+		if (!_willChangeNotifications.ContainsKey(type))
+		{
+			_willChangeNotifications.Add(type, string.Format("Stats.{0}WillChange", type));
+		}
+		return _willChangeNotifications[type];
+	}
+
+	public static string DidChangeNotification(StatTypes type)
+	{
+		if (!_didChangeNotifications.ContainsKey(type))
+		{
+			_didChangeNotifications.Add(type, string.Format("Stats.{0}DidChange", type));
+		}
+		return _didChangeNotifications[type];
+	}
 }
 
-public enum Stats
+public enum StatTypes
 {
 	MoveSpeed,
 	FireRate,
 	Health,
 	MaxHealth,
+	Count,
 }

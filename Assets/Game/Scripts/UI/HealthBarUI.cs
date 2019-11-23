@@ -8,7 +8,7 @@ public class HealthBarUI : MonoBehaviour
 	[SerializeField] private Sprite emptySprite;
 	[SerializeField] private Sprite fullSprite;
 
-	private EntityStats _stats;
+	private Stats _stats;
 
 	private void Start()
 	{
@@ -26,8 +26,8 @@ public class HealthBarUI : MonoBehaviour
 	{
 		for (int i = 0; i < images.Count; i++)
 		{
-			images[i].enabled = _stats.MaxHealth.Current > i;
-			images[i].sprite = _stats.Health.Current > i ? fullSprite : emptySprite;
+			images[i].enabled = _stats[StatTypes.MaxHealth] > i;
+			images[i].sprite = _stats[StatTypes.Health] > i ? fullSprite : emptySprite;
 		}
 	}
 }

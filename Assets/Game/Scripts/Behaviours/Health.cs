@@ -12,15 +12,11 @@ public class Health : MonoBehaviour
 	public const string OnDeathNotification = "Health.OnDeathNotification";
 	public const string OnHitNotification = "Health.OnHitNotification";
 
-	// public int Current => _stats.Health.Current;
-	public int Max { get; private set; }
-
-	private const int min = 0;
-	private float iFrameStart;
-	private EntityStats _stats;
+	private float _iFrameStart;
+	private Stats _stats;
 
 	[Inject]
-	public void Construct(EntityStats stats)
+	public void Construct(Stats stats)
 	{
 		_stats = stats;
 	}
@@ -44,8 +40,7 @@ public class Health : MonoBehaviour
 
 	private void Start()
 	{
-		iFrameStart = Time.time;
-		Max = _stats.MaxHealth.Current;
+		_iFrameStart = Time.time;
 		onStartup.Invoke();
 	}
 
@@ -53,9 +48,9 @@ public class Health : MonoBehaviour
 	{
 		if (!IsIFrame())
 		{
-			_stats.Health.Current -= damage;
+			_stats[StatTypes.Health] -= damage;
 
-			if (_stats.Health.Current <= 0)
+			if (_stats[StatTypes.Health] <= 0)
 			{
 				onDeathEvent.Invoke();
 				this.PostNotification(OnDeathNotification);
@@ -65,8 +60,9 @@ public class Health : MonoBehaviour
 
 	public void SetMaxHealth(int value)
 	{
-		Max = value;
-		_stats.Health.Current = _stats.Health.Current;
+		UnityEngine.Debug.Log("FIXME:");
+		// Max = value;
+		// _stats[StatTypes.Health] = _stats[StatTypes.Health];
 	}
 
 	public void DestroyItself()
@@ -76,11 +72,11 @@ public class Health : MonoBehaviour
 
 	private bool IsIFrame()
 	{
-		return Time.time <= (iFrameStart + invulnerabilityFrameCoolDown);
+		return Time.time <= (_iFrameStart + invulnerabilityFrameCoolDown);
 	}
 
 	public void SetInvulnerabilityFrame()
 	{
-		iFrameStart = Time.time;
+		_iFrameStart = Time.time;
 	}
 }

@@ -2,15 +2,13 @@
 
 public class HealthSacrifice : MonoBehaviour, ISacrifice
 {
-	private EntityStats _stats;
-
 	public void OnApply()
 	{
-		_stats = GameObject.Find("Player")?.GetComponent<PlayerFacade>()?.Stats;
-		if (_stats != null)
+		var stats = GameObject.Find("Player")?.GetComponent<PlayerFacade>()?.Stats;
+		if (stats != null)
 		{
-			_stats.Health.Current -= 2;
-			_stats.MaxHealth.Current -= 2;
+			stats[StatTypes.Health] -= 2;
+			stats[StatTypes.MaxHealth] -= 2;
 		}
 	}
 
