@@ -1,61 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
+using Zenject;
 
 public class SacrificePedestal : MonoBehaviour
 {
-	[SerializeField]
-	private Transform icon;
+	[SerializeField] private Transform _iconTransform;
+	[SerializeField] private TextMeshProUGUI _label;
+	[SerializeField] private SpriteRenderer _iconSpriteRenderer;
 
-	[SerializeField]
-	private TextMeshProUGUI label;
+	private SacrificeData _data;
+	private SacrificesManager _manager;
+	private readonly float _min = 0f;
+	private readonly float _max = 0.02f;
 
-	[SerializeField]
-	private SpriteRenderer iconSpriteRenderer;
-
-	private Sacrifice sacrifice;
-	private float min = 0f;
-	private float max = 0.02f;
-
-	private void OnEnable()
+	[Inject]
+	private void Construct(SacrificesManager manager)
 	{
-		this.AddObserver(OnChooseSacrifice, SacrificesManager.OnChooseSacrificeNotification);
-	}
-
-	private void OnDisable()
-	{
-		this.RemoveObserver(OnChooseSacrifice, SacrificesManager.OnChooseSacrificeNotification);
+		_manager = manager;
 	}
 
 	private void Update()
 	{
-		icon.position = new Vector3(
+		_iconTransform.position = new Vector3(
 			transform.position.x,
-			transform.position.y + Mathf.PingPong(Time.time * 0.02f, max - min) + min,
+			transform.position.y + Mathf.PingPong(Time.time * _max, _max - _min) + _min,
 			transform.position.z
 		);
-	}
-
-	private void OnChooseSacrifice(object sender, object args)
-	{
-		GameObject.Destroy(gameObject);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collider)
 	{
 		if (collider.gameObject.CompareTag("Player"))
 		{
-			this.PostNotification(SacrificesManager.OnChooseSacrificeNotification, sacrifice);
-
-			GameObject.Destroy(gameObject);
+			_manager.ActivateSacrifice(_data);
 		}
 	}
 
-	public void SetSacrifice(Sacrifice sacrifice)
+	public void SetSacrifice(SacrificeData sacrifice)
 	{
-		this.sacrifice = sacrifice;
-		iconSpriteRenderer.sprite = sacrifice.image;
-		label.text = sacrifice.label;
+		_data = sacrifice;
+
+		_iconSpriteRenderer.sprite = sacrifice.image;
+		_label.text = sacrifice.label;
 	}
 }

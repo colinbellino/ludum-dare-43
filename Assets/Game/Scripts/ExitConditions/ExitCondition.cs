@@ -1,18 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Zenject;
 
 public abstract class ExitCondition : MonoBehaviour
 {
 	public const string OnShowExitNotification = "ExitCondition.ShowExitNotification";
 
-	void Update()
+	protected SacrificesManager _manager;
+
+	private void Awake()
 	{
-		if (CheckForExitCondition())
+		_manager = FindObjectOfType<SacrificesManager>();
+	}
+
+	private void Update()
+	{
+		if (CheckForExitCondition)
 		{
 			this.PostNotification(OnShowExitNotification);
 		}
 	}
 
-	protected abstract bool CheckForExitCondition();
+	protected abstract bool CheckForExitCondition { get; }
 }

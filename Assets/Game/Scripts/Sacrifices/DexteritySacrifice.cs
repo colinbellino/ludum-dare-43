@@ -8,7 +8,9 @@ public class DexteritySacrifice : MonoBehaviour, ISacrifice
 		var stats = GameObject.Find("Player")?.GetComponent<IEntity>()?.Stats;
 		if (stats != null)
 		{
-			stats[StatTypes.FireRate] /= 2;
+			UnityEngine.Debug.Log("stats[StatTypes.FireRate] " + stats[StatTypes.FireRate]);
+			stats[StatTypes.FireRate] *= 2;
+			UnityEngine.Debug.Log("stats[StatTypes.FireRate] " + stats[StatTypes.FireRate]);
 		}
 	}
 

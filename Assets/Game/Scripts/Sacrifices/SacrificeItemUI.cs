@@ -1,13 +1,19 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SacrificeItemUI : MonoBehaviour
 {
-	[SerializeField]
-	public Image image;
+	[SerializeField] public Image _image;
+	[SerializeField] public Text _label;
 
-	[SerializeField]
-	public Text label;
+	public void SetSacrifice(SacrificeData data)
+	{
+		_image.sprite = data.image;
 
-	[SerializeField] public Button button;
+		if (_label)
+		{
+			_label.text = data.label;
+		}
+	}
 }

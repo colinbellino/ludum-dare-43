@@ -4,41 +4,33 @@ using Zenject;
 
 public class GameManager : MonoBehaviour
 {
+	[SerializeField] private Transform spawnPoint;
+	[SerializeField] private GameObject exit;
+
 	public const string OnStartSacrificeNotification = "GameManager.StartSacrificeNotification";
 	public const string OnStartCombatNotification = "GameManager.StartCombatNotification";
 	public const string OnLevelSpawn = "GameManager.LevelSpawn";
 
-	public PlayerFacade Player { get; private set; }
-
-	[SerializeField]
-	private Transform spawnPoint;
-
-	[SerializeField]
-	private GameObject exit;
-
-	public AudioSource mainAudioSource;
-
-	private int currentLevelIndex = -1;
 	public GameObject currentLevel { get; private set; }
-	private GameSettings settings;
-	private bool isCombatPhase;
+	public AudioSource mainAudioSource;
 	public bool IsNoUiMode = false;
 
+	private PlayerFacade _player;
+	private int currentLevelIndex = -1;
+	private GameSettings _settings;
+	private bool _isCombatPhase;
+
 	[Inject]
-	public void Construct(GameSettings settings)
+	public void Construct(GameSettings settings, PlayerFacade player)
 	{
-		this.settings = settings;
-		// TODO: Clean this
-		// I think this is a bad practice to use GameObject methods in Construct but we need the player to
-		// be present when GameManager is injected. Also this is a game jam so, if it works...
-		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFacade>();
+		_settings = settings;
+		_player = player;
 	}
 
 	private void OnEnable()
 	{
 		this.AddObserver(OnWin, WinCondition.OnWinNotification);
 		this.AddObserver(OnShowExit, ExitCondition.OnShowExitNotification);
-		this.AddObserver(OnChooseSacrifice, SacrificesManager.OnChooseSacrificeNotification);
 		this.AddObserver(OnDeath, Health.OnDeathNotification);
 	}
 
@@ -46,7 +38,6 @@ public class GameManager : MonoBehaviour
 	{
 		this.RemoveObserver(OnWin, WinCondition.OnWinNotification);
 		this.RemoveObserver(OnShowExit, ExitCondition.OnShowExitNotification);
-		this.RemoveObserver(OnChooseSacrifice, SacrificesManager.OnChooseSacrificeNotification);
 		this.RemoveObserver(OnDeath, Health.OnDeathNotification);
 		this.RemoveObserver(SetNoUIMode, KnowledgeSacrifice.OnUiDisable);
 	}
@@ -105,15 +96,15 @@ public class GameManager : MonoBehaviour
 			exit.SetActive(false);
 		}
 
-		if (isCombatPhase)
+		if (_isCombatPhase)
 		{
-			isCombatPhase = false;
+			_isCombatPhase = false;
 			NextLevel();
 			StartSacrifice();
 		}
 		else
 		{
-			isCombatPhase = true;
+			_isCombatPhase = true;
 			NextLevel();
 			StartCombat();
 		}
@@ -129,12 +120,10 @@ public class GameManager : MonoBehaviour
 		this.PostNotification(OnStartCombatNotification);
 	}
 
-	private void OnChooseSacrifice(object sender, object args) => StartCombat();
-
 	private void OnDeath(object sender, object args)
 	{
 		var actor = ((MonoBehaviour) sender).GetComponent<PlayerFacade>();
-		if (actor == Player)
+		if (actor == _player)
 		{
 			SceneManager.LoadScene("GameOver");
 		}
@@ -154,20 +143,20 @@ public class GameManager : MonoBehaviour
 
 	private void NextLevel()
 	{
-		Player.transform.position = spawnPoint.position;
+		_player.transform.position = spawnPoint.position;
 		currentLevelIndex++;
 		SpawnLevel();
 	}
 
 	private static GameObject SpawnLevel(GameObject level)
 	{
-		var instance = GameObject.Instantiate(level);
+		var instance = Instantiate(level);
 		return instance;
 	}
 
 	private void SpawnLevel()
 	{
-		var nextLevel = settings.levels[currentLevelIndex];
+		var nextLevel = _settings.levels[currentLevelIndex];
 		currentLevel = SpawnLevel(nextLevel);
 		this.PostNotification(OnLevelSpawn, nextLevel.name);
 
@@ -176,7 +165,7 @@ public class GameManager : MonoBehaviour
 
 	private bool IsLastLevel()
 	{
-		return currentLevelIndex >= settings.levels.Count - 1;
+		return currentLevelIndex >= _settings.levels.Count - 1;
 	}
 
 	private void DestroyCurrentLevel()
@@ -186,6 +175,6 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 
-		GameObject.Destroy(currentLevel);
+		Destroy(currentLevel);
 	}
 }

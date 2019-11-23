@@ -27,8 +27,5 @@ public class KillAllEnemiesExitCondition : ExitCondition
 		isConditionFullfilled = enemies.Length <= 1;
 	}
 
-	protected override bool CheckForExitCondition()
-	{
-		return isConditionFullfilled;
-	}
+	protected override bool CheckForExitCondition => isConditionFullfilled;
 }
