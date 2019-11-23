@@ -311,8 +311,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bece6560d50104457aafe0a4eccf2b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveTowardsPlayer: 1
+  _moveTowardsPlayer: 0
   _shootAtPlayer: 0
+  _moveDumblyAtPlayer: 1
 --- !u!114 &7486695756699482522
 MonoBehaviour:
   m_ObjectHideFlags: 0
