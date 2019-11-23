@@ -223,8 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac59975632f77e746a960a2ef59810d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 9166350457059993937, guid: f39c9e9fecd700643af5b8561f5d5029,
-    type: 3}
   _projectileOrigin: {fileID: 9214545110174777239}
   _projectileOriginDistance: 0.75
   _onFired:
@@ -292,6 +290,8 @@ MonoBehaviour:
     MoveSpeed: 0
     FireRate: 20
     Health: 2
+    Damage: 1
+    ShotSpeed: 2
     Alliance: 1
 --- !u!1001 &3155541367432920080
 PrefabInstance:

@@ -329,6 +329,8 @@ MonoBehaviour:
     MoveSpeed: 4
     FireRate: 0
     Health: 1
+    Damage: 1
+    ShotSpeed: 2
     Alliance: 1
 --- !u!1001 &3155541367432920080
 PrefabInstance:

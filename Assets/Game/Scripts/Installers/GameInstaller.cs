@@ -11,6 +11,12 @@ public class GameInstaller : MonoInstaller
 		Container.Bind<SacrificesManager>().FromComponentsInHierarchy().AsSingle();
 		Container.Bind<PlayerFacade>().FromComponentsInHierarchy().AsSingle();
 
+//		Container.BindInterfacesTo<EntityInitialPosition>().AsSingle();
+
+		Container.BindFactory<ProjectileSettings, ProjectileFacade, ProjectileFacade.Factory>()
+			.FromSubContainerResolve()
+			.ByNewContextPrefab<ProjectileInstaller>(_settings.projectilesPrefab);
+
 		// TODO: Clean this up...
 		Container.BindFactory<Vector3, EnemyFacade, EnemyFacade.Factory>()
 			.FromSubContainerResolve()
