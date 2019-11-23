@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class EnemyHealthBar : MonoBehaviour
 {
@@ -7,23 +8,33 @@ public class EnemyHealthBar : MonoBehaviour
 
 	private Stats _stats;
 
-	private void Start()
+	[Inject]
+	public void Construct(Stats stats)
 	{
-		_stats = GetComponentInParent<IEntity>()?.Stats;
-		UpdateLifePercent();
+		_stats = stats;
 	}
 
-	// FIXME: Subscribe to changes to Health / MaxHealth instead of calling this with UnityEvents
+	private void OnEnable()
+	{
+		this.AddObserver(OnHealthChange, Stats.DidChangeNotification(StatTypes.Health), _stats);
+	}
+
+	private void OnDisable()
+	{
+		this.RemoveObserver(OnHealthChange, Stats.DidChangeNotification(StatTypes.Health), _stats);
+	}
+
+	private void Start() => UpdateLifePercent();
+
+	private void OnHealthChange(object arg1, object arg2) => UpdateLifePercent();
+
 	public void UpdateLifePercent()
 	{
 		if (_healthBarForeground.activeInHierarchy)
 		{
-			_healthBarForeground.GetComponent<Image>().fillAmount = CalculateHealthPercent();
+			_healthBarForeground.GetComponent<Image>().fillAmount = CalculateHealthPercent;
 		}
 	}
 
-	private float CalculateHealthPercent()
-	{
-		return (float) _stats[StatTypes.Health] / (float) _stats[StatTypes.MaxHealth];
-	}
+	private float CalculateHealthPercent => (float) _stats[StatTypes.Health] / _stats[StatTypes.MaxHealth];
 }
