@@ -10,8 +10,7 @@ public class GameInstaller : MonoInstaller
 		Container.Bind<GameManager>().FromComponentsInHierarchy().AsSingle();
 		Container.Bind<SacrificesManager>().FromComponentsInHierarchy().AsSingle();
 		Container.Bind<PlayerFacade>().FromComponentsInHierarchy().AsSingle();
-
-//		Container.BindInterfacesTo<EntityInitialPosition>().AsSingle();
+		Container.Bind<CameraRig>().FromComponentsInHierarchy().AsSingle();
 
 		Container.BindFactory<ProjectileSettings, ProjectileFacade, ProjectileFacade.Factory>()
 			.FromSubContainerResolve()
