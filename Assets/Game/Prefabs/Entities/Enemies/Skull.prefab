@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 8855389310855670223}
   - component: {fileID: 4879242734261612212}
   - component: {fileID: 6159160726468998790}
+  - component: {fileID: -1971552740281996922}
   m_Layer: 0
   m_Name: Skull
   m_TagString: Enemy
@@ -193,6 +194,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: -1971552740281996922}
+        m_MethodName: OnDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onHit:
     m_PersistentCalls:
       m_Calls:
@@ -210,7 +222,6 @@ MonoBehaviour:
   onStartup:
     m_PersistentCalls:
       m_Calls: []
-  invulnerabilityFrameCoolDown: 0.1
 --- !u!114 &2186693991929349949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,10 +301,27 @@ MonoBehaviour:
   _settings:
     MoveSpeed: 5
     FireRate: 20
-    Health: 2
+    Health: 7
     Damage: 1
     ShotSpeed: 5
     Alliance: 1
+    InvincibilityFrameCoolDown: 0
+    OnHitParticulePrefab: {fileID: 7127678448324640652, guid: 08703ad79f4ba4eea9a7113189d0c4ae,
+      type: 3}
+    OnDeathParticulePrefab: {fileID: 3091684987557094479, guid: 58a45ccaaaa114a3fa15ff16fae4d718,
+      type: 3}
+--- !u!114 &-1971552740281996922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885532686460678695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab0628c4222f413fb35059d0d5cd2e31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3155541367432920080
 PrefabInstance:
   m_ObjectHideFlags: 0
