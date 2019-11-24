@@ -7,6 +7,7 @@ public class EnemyInstaller : MonoInstaller
 	[SerializeField] private bool _moveTowardsPlayer;
 	[SerializeField] private bool _shootAtPlayer;
 	[SerializeField] private bool _moveDumblyAtPlayer;
+	[SerializeField] private bool _shootAtCardinalDirection;
 
 	[Inject] private Vector3 _initialPosition;
 	[Inject] private PlayerFacade _player;
@@ -38,6 +39,10 @@ public class EnemyInstaller : MonoInstaller
 		if (_moveDumblyAtPlayer)
 		{
 			Container.Bind<IBrainPart>().To<MoveDumblyAtPlayer>().AsSingle();
+		}
+		if (_shootAtCardinalDirection)
+		{
+			Container.Bind<IBrainPart>().To<ShootAtCardinalPoint>().AsSingle();
 		}
 	}
 }
