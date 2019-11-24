@@ -7,18 +7,19 @@ public class Health : MonoBehaviour
 	[SerializeField] private UnityEvent onDeathEvent;
 	[SerializeField] private UnityEvent onHit;
 	[SerializeField] private UnityEvent onStartup;
-	[SerializeField] private float invulnerabilityFrameCoolDown = 0.3f;
 
 	public const string OnDeathNotification = "Health.OnDeathNotification";
 	public const string OnHitNotification = "Health.OnHitNotification";
 
 	private float _iFrameStart;
 	private Stats _stats;
+	private float _invulnerabilityFrameCoolDown;
 
 	[Inject]
-	public void Construct(Stats stats)
+	public void Construct(Stats stats, EntitySettings settings)
 	{
 		_stats = stats;
+		_invulnerabilityFrameCoolDown = settings.InvincibilityFrameCoolDown;
 	}
 
 	private void OnEnable()
@@ -72,7 +73,7 @@ public class Health : MonoBehaviour
 
 	private bool IsIFrame()
 	{
-		return Time.time <= (_iFrameStart + invulnerabilityFrameCoolDown);
+		return Time.time <= (_iFrameStart + _invulnerabilityFrameCoolDown);
 	}
 
 	public void SetInvulnerabilityFrame()

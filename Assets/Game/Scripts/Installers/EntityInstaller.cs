@@ -31,4 +31,5 @@ public class EntitySettings
 	public int Damage;
 	public int ShotSpeed;
 	public Alliances Alliance;
+	public float InvincibilityFrameCoolDown;
 }
