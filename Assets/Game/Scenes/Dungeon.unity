@@ -10615,16 +10615,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 292485459968603070, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _speed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3690120190048690759, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7712446667477971409, guid: cd7ab19eb8b261e4593c21a9597d856c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10684,37 +10674,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8325567493031700551, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: e48e36b4c26aa694cb5c5dd5306f25ad,
-        type: 3}
-    - target: {fileID: 8325567493031700551, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8325567493031700551, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _settings.MoveSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _settings.FireRate
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9025302283277835171, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd7ab19eb8b261e4593c21a9597d856c, type: 3}

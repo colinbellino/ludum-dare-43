@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3995331857166551594}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.55, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7712446667477971409}
@@ -71,7 +71,8 @@ SpriteRenderer:
   m_SortingLayerID: -1917788409
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300004, guid: 55b56019e6b54b04eac49dd25dfd9e0c, type: 3}
+  m_Sprite: {fileID: 3195927482827504494, guid: a9f4176842dfccc46bd67716d8f7482b,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,36 +102,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1 &7263578517956478048
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7263578517956478052}
-  m_Layer: 0
-  m_Name: Fire Indicator
-  m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7263578517956478052
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7263578517956478048}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
-  m_Children: []
-  m_Father: {fileID: 7712446667477971409}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7712446667477971421
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +112,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7712446667477971409}
   - component: {fileID: 2310778878474937664}
-  - component: {fileID: 9025302283277835171}
   - component: {fileID: 292485459968603070}
   - component: {fileID: 3492163957998983327}
   - component: {fileID: 300368964092380891}
@@ -150,6 +120,8 @@ GameObject:
   - component: {fileID: 1903912067}
   - component: {fileID: 9003069737278429286}
   - component: {fileID: 8329127435378289129}
+  - component: {fileID: 2561065261669699684}
+  - component: {fileID: 5132630908812754057}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -169,7 +141,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2822382466616293122}
-  - {fileID: 7263578517956478052}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -185,7 +156,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 0.7853982
+  m_Mass: 0.33189568
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -194,22 +165,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &9025302283277835171
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7712446667477971421}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &292485459968603070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +178,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 2310778878474937664}
-  _animator: {fileID: 3690120190048690759}
 --- !u!114 &3492163957998983327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac59975632f77e746a960a2ef59810d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileOrigin: {fileID: 7263578517956478052}
+  _projectileOrigin: {fileID: 0}
   _projectileOriginDistance: 0.8
   _onFired:
     m_PersistentCalls:
@@ -267,7 +221,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onDeathEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2561065261669699684}
+        m_MethodName: OnDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onHit:
     m_PersistentCalls:
       m_Calls:
@@ -285,7 +250,6 @@ MonoBehaviour:
   onStartup:
     m_PersistentCalls:
       m_Calls: []
-  invulnerabilityFrameCoolDown: 0.5
 --- !u!82 &3187467313634084598
 AudioSource:
   m_ObjectHideFlags: 0
@@ -425,6 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 214c8173767d16f46ae3fc73e2808af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 3690120190048690759}
 --- !u!114 &8329127435378289129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,8 +404,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
     MoveSpeed: 6
-    FireRate: 0
+    FireRate: 10
     Health: 3
     Damage: 1
-    ShotSpeed: 6
+    ShotSpeed: 15
+    ShotDirection: 0
+    ShotCount: 0
     Alliance: 0
+    InvincibilityFrameCoolDown: 0.5
+    OnHitParticulePrefab: {fileID: 8334952038618752020, guid: 0e15f859111464ca1b2348d8b9b668f6,
+      type: 3}
+    OnDeathParticulePrefab: {fileID: 0}
+--- !u!114 &2561065261669699684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7712446667477971421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab0628c4222f413fb35059d0d5cd2e31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!70 &5132630908812754057
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7712446667477971421}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.36}
+  m_Size: {x: 0.65, y: 0.52}
+  m_Direction: 0
