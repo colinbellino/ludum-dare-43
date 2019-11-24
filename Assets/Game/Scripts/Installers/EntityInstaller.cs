@@ -32,4 +32,6 @@ public class EntitySettings
 	public int ShotSpeed;
 	public Alliances Alliance;
 	public float InvincibilityFrameCoolDown;
+	public GameObject OnHitParticulePrefab;
+	public GameObject OnDeathParticulePrefab;
 }

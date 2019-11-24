@@ -144,6 +144,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
         type: 3}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
+        type: 3}
       propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -165,6 +170,31 @@ PrefabInstance:
     - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
         type: 3}
       propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
+        type: 3}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
+        type: 3}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
+        type: 3}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1079194511}
+    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
+        type: 3}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnDeath
+      objectReference: {fileID: 0}
+    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
+        type: 3}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2310778878474937664, guid: cd7ab19eb8b261e4593c21a9597d856c,
@@ -251,7 +281,7 @@ PrefabInstance:
     - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
         type: 3}
       propertyPath: _settings.Damage
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
         type: 3}
@@ -273,11 +303,22 @@ PrefabInstance:
       propertyPath: _settings.InvincibilityFrameCoolDown
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
+        type: 3}
+      propertyPath: _settings.OnHitParticulePrefab
+      value: 
+      objectReference: {fileID: 8334952038618752020, guid: 0e15f859111464ca1b2348d8b9b668f6,
+        type: 3}
+    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
+        type: 3}
+      propertyPath: _settings.OnDeathParticulePrefab
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9003069737278429286, guid: cd7ab19eb8b261e4593c21a9597d856c,
         type: 3}
       propertyPath: _onHitParticulePrefab
       value: 
-      objectReference: {fileID: 3738098220359273321, guid: 39428caa11c614e0aaae58cbddbb1482,
+      objectReference: {fileID: 8334952038618752020, guid: 0e15f859111464ca1b2348d8b9b668f6,
         type: 3}
     - target: {fileID: 9003069737278429286, guid: cd7ab19eb8b261e4593c21a9597d856c,
         type: 3}
