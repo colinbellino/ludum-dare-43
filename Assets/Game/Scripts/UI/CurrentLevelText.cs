@@ -1,26 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
+using Zenject;
 
 public class CurrentLevelText : MonoBehaviour
 {
-	[SerializeField]
-	private TextMeshProUGUI text;
+	[SerializeField] private TextMeshProUGUI _text;
+
+	private LevelManager _levelManager;
+
+	[Inject]
+	public void Construct(LevelManager levelManager)
+	{
+		_levelManager = levelManager;
+	}
 
 	private void OnEnable()
 	{
-		this.AddObserver(ChangeLevelName, GameManager.OnLevelSpawn);
+		_levelManager.OnLevelChanged += OnLevelChanged;
 	}
 
 	private void OnDisable()
 	{
-		this.RemoveObserver(ChangeLevelName, GameManager.OnLevelSpawn);
+		_levelManager.OnLevelChanged -= OnLevelChanged;
 	}
 
-	private void ChangeLevelName(object sender, object args)
-	{
-		var levelName = (string) args;
-		text.text = levelName != "Sacrifice" ? levelName : "To go deeper, you must sacrifice something.";
-	}
+	private void OnLevelChanged(string levelName) => _text.text = levelName;
 }
