@@ -129,84 +129,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1903912066, guid: cd7ab19eb8b261e4593c21a9597d856c, type: 3}
-      propertyPath: _monoInstallers.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1903912066, guid: cd7ab19eb8b261e4593c21a9597d856c, type: 3}
-      propertyPath: _monoInstallers.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: OnHit
-      objectReference: {fileID: 0}
-    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1079194511}
-    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnDeath
-      objectReference: {fileID: 0}
-    - target: {fileID: 300368964092380891, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 2310778878474937664, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2822382466616293122, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 7712446667477971409, guid: cd7ab19eb8b261e4593c21a9597d856c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -266,74 +188,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8325567493031700551, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8325567493031700551, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 3195927482827504494, guid: a9f4176842dfccc46bd67716d8f7482b,
-        type: 3}
-    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _settings.Damage
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _settings.ShotSpeed
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _settings.FireRate
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _settings.Health
-      value: 99
-      objectReference: {fileID: 0}
-    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _settings.InvincibilityFrameCoolDown
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _settings.OnHitParticulePrefab
-      value: 
-      objectReference: {fileID: 8334952038618752020, guid: 0e15f859111464ca1b2348d8b9b668f6,
-        type: 3}
-    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _settings.OnDeathParticulePrefab
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 9003069737278429286, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _onHitParticulePrefab
-      value: 
-      objectReference: {fileID: 8334952038618752020, guid: 0e15f859111464ca1b2348d8b9b668f6,
-        type: 3}
-    - target: {fileID: 9003069737278429286, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _animator
-      value: 
-      objectReference: {fileID: 1271293520}
-    - target: {fileID: 9025302283277835171, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9025302283277835171, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd7ab19eb8b261e4593c21a9597d856c, type: 3}
@@ -508,24 +362,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 311e1af3e1f04a14cb7b19691bddbe33, type: 3}
---- !u!1 &1079194510 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7712446667477971421, guid: cd7ab19eb8b261e4593c21a9597d856c,
-    type: 3}
-  m_PrefabInstance: {fileID: 474836283}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1079194511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1079194510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab0628c4222f413fb35059d0d5cd2e31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1268397978
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,12 +392,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1271293520 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3690120190048690759, guid: cd7ab19eb8b261e4593c21a9597d856c,
-    type: 3}
-  m_PrefabInstance: {fileID: 474836283}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1393001209
 PrefabInstance:
   m_ObjectHideFlags: 0
