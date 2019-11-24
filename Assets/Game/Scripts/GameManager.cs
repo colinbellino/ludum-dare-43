@@ -4,26 +4,21 @@ using Zenject;
 
 public class GameManager : MonoBehaviour
 {
-	[SerializeField] private Transform spawnPoint;
-	[SerializeField] private GameObject exit;
+	[SerializeField] private Transform _spawnPoint;
+	[SerializeField] private GameObject _exit;
 
 	public const string OnStartSacrificeNotification = "GameManager.StartSacrificeNotification";
 	public const string OnStartCombatNotification = "GameManager.StartCombatNotification";
-	public const string OnLevelSpawn = "GameManager.LevelSpawn";
+	public bool IsNoUiMode { get; private set; }
 
-	public GameObject currentLevel { get; private set; }
-	public AudioSource mainAudioSource;
-	public bool IsNoUiMode = false;
-
+	private LevelManager _levelManager;
 	private PlayerFacade _player;
-	private int currentLevelIndex = -1;
-	private GameSettings _settings;
 	private bool _isCombatPhase;
 
 	[Inject]
-	public void Construct(GameSettings settings, PlayerFacade player)
+	public void Construct(LevelManager levelManager, PlayerFacade player)
 	{
-		_settings = settings;
+		_levelManager = levelManager;
 		_player = player;
 	}
 
@@ -32,6 +27,8 @@ public class GameManager : MonoBehaviour
 		this.AddObserver(OnWin, WinCondition.OnWinNotification);
 		this.AddObserver(OnShowExit, ExitCondition.OnShowExitNotification);
 		this.AddObserver(OnDeath, Health.OnDeathNotification);
+
+		_levelManager.OnLevelChanged += OnLevelChanged;
 	}
 
 	private void OnDisable()
@@ -40,11 +37,13 @@ public class GameManager : MonoBehaviour
 		this.RemoveObserver(OnShowExit, ExitCondition.OnShowExitNotification);
 		this.RemoveObserver(OnDeath, Health.OnDeathNotification);
 		this.RemoveObserver(SetNoUIMode, KnowledgeSacrifice.OnUiDisable);
+
+		_levelManager.OnLevelChanged -= OnLevelChanged;
 	}
 
 	private void Start()
 	{
-		var isDebugMode = spawnPoint == null;
+		var isDebugMode = _spawnPoint == null;
 		if (isDebugMode)
 		{
 			Invoke("StartCombat", 0.1f);
@@ -66,6 +65,11 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	private void OnLevelChanged(string levelName)
+	{
+		_player.transform.position = _spawnPoint.position;
+	}
+
 	private void SetNoUIMode(object sender, object args)
 	{
 		IsNoUiMode = true;
@@ -73,41 +77,42 @@ public class GameManager : MonoBehaviour
 
 	private void OnWin(object sender, object args)
 	{
-		if (IsLastLevel())
-		{
-			SceneManager.LoadScene("Finish");
-			return;
-		}
-
-		DestroyCurrentLevel();
 		StartNextGameplayPhase();
 	}
 
 	private void OnShowExit(object sender, object args)
 	{
-		exit.transform.position = spawnPoint.position;
-		exit.SetActive(true);
+		_exit.transform.position = _spawnPoint.position;
+		_exit.SetActive(true);
 	}
 
 	private void StartNextGameplayPhase()
 	{
-		if (exit != null)
+		if (_exit != null)
 		{
-			exit.SetActive(false);
+			_exit.SetActive(false);
+		}
+
+		try
+		{
+			_levelManager.NextLevel();
+		}
+		catch
+		{
+			SceneManager.LoadScene("Finish");
+			return;
 		}
 
 		if (_isCombatPhase)
 		{
-			_isCombatPhase = false;
-			NextLevel();
 			StartSacrifice();
 		}
 		else
 		{
-			_isCombatPhase = true;
-			NextLevel();
 			StartCombat();
 		}
+
+		_isCombatPhase = !_isCombatPhase;
 	}
 
 	private void StartSacrifice()
@@ -127,54 +132,5 @@ public class GameManager : MonoBehaviour
 		{
 			SceneManager.LoadScene("GameOver");
 		}
-	}
-
-	public void DebuggerNextLevel()
-	{
-		if (IsLastLevel())
-		{
-			SceneManager.LoadScene("Finish");
-			return;
-		}
-
-		DestroyCurrentLevel();
-		StartNextGameplayPhase();
-	}
-
-	private void NextLevel()
-	{
-		_player.transform.position = spawnPoint.position;
-		currentLevelIndex++;
-		SpawnLevel();
-	}
-
-	private static GameObject SpawnLevel(GameObject level)
-	{
-		var instance = Instantiate(level);
-		return instance;
-	}
-
-	private void SpawnLevel()
-	{
-		var nextLevel = _settings.levels[currentLevelIndex];
-		currentLevel = SpawnLevel(nextLevel);
-		this.PostNotification(OnLevelSpawn, nextLevel.name);
-
-		Debug.Log("Loading next level: " + nextLevel.name);
-	}
-
-	private bool IsLastLevel()
-	{
-		return currentLevelIndex >= _settings.levels.Count - 1;
-	}
-
-	private void DestroyCurrentLevel()
-	{
-		if (!currentLevel)
-		{
-			return;
-		}
-
-		Destroy(currentLevel);
 	}
 }

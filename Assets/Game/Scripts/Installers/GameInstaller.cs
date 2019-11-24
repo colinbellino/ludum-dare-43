@@ -12,6 +12,8 @@ public class GameInstaller : MonoInstaller
 		Container.Bind<PlayerFacade>().FromComponentsInHierarchy().AsSingle();
 		Container.Bind<CameraRig>().FromComponentsInHierarchy().AsSingle();
 
+		Container.Bind<LevelManager>().AsSingle();
+
 		Container.BindFactory<ProjectileSettings, ProjectileFacade, ProjectileFacade.Factory>()
 			.FromSubContainerResolve()
 			.ByNewContextPrefab<ProjectileInstaller>(_settings.projectilesPrefab);
