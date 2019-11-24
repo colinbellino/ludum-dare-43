@@ -5,16 +5,32 @@ using Zenject;
 public class Movement : MonoBehaviour
 {
 	[SerializeField][FormerlySerializedAs("rb")] private Rigidbody2D _rb;
-	[SerializeField][FormerlySerializedAs("animator")] private Animator _animator;
 
+	private Animator _animator;
 	private IInputState _inputState;
 	private Stats _stats;
+	private float _hitAnimationTime;
+	private float _invulnerabilityFrameCoolDown;
 
 	[Inject]
-	public void Construct(IInputState inputState, Stats stats)
+	public void Construct(IInputState inputState, Stats stats, PlayerFacade playerFacade, EntitySettings settings)
 	{
 		_inputState = inputState;
 		_stats = stats;
+		_animator = playerFacade.Animator;
+		_invulnerabilityFrameCoolDown = settings.InvincibilityFrameCoolDown;
+		// Start a -_invulnerabilityFrameCoolDown to avoid trigger instantly
+		_hitAnimationTime = -_invulnerabilityFrameCoolDown;
+	}
+
+	private void OnEnable()
+	{
+		this.AddObserver(OnHit, Health.OnHitNotification, gameObject);
+	}
+
+	private void OnDisable()
+	{
+		this.RemoveObserver(OnHit, Health.OnHitNotification, gameObject);
 	}
 
 	private void Update()
@@ -35,7 +51,11 @@ public class Movement : MonoBehaviour
 
 	private void UpdateAnimator(Vector2 moveInput)
 	{
-		if (moveInput.magnitude > 0f)
+		if (_hitAnimationTime + _invulnerabilityFrameCoolDown > Time.time )
+		{
+			_animator.Play("Hit");
+		}
+		else if (moveInput.magnitude > 0f)
 		{
 			_animator.Play("Walk");
 		}
@@ -54,6 +74,16 @@ public class Movement : MonoBehaviour
 		{
 			_animator.SetFloat("MoveX", 0f);
 			_animator.SetFloat("MoveY", moveInput.y);
+		}
+	}
+
+	private void OnHit(object sender, object arg)
+	{
+		var isPlayer = ((GameObject) sender).CompareTag("Player");
+
+		if (isPlayer)
+		{
+			_hitAnimationTime = Time.time;
 		}
 	}
 }
