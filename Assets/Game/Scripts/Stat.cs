@@ -71,5 +71,7 @@ public enum StatTypes
 	MaxHealth,
 	ShotSpeed,
 	Damage,
+	ShotDirection,
+	ShotCount,
 	Count,
 }

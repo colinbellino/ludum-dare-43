@@ -13,7 +13,6 @@ public class ProjectileInstaller : MonoInstaller
 		Container.BindInterfacesTo<EntityInitialPosition>().AsSingle();
 		Container.BindInterfacesTo<ProjectileAlliance>().AsSingle();
 
-
 		Container.BindInstance(_projectileSettings.InitialPositions).WhenInjectedInto<EntityInitialPosition>();
 		Container.BindInstance(_projectileSettings);
 	}

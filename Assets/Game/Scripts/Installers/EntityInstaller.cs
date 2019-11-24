@@ -17,6 +17,8 @@ public class EntityInstaller : MonoInstaller
 		stats[StatTypes.FireRate] = _settings.FireRate;
 		stats[StatTypes.Damage] = _settings.Damage;
 		stats[StatTypes.ShotSpeed] = _settings.ShotSpeed;
+		stats[StatTypes.ShotDirection] = _settings.ShotDirection;
+		stats[StatTypes.ShotCount] = _settings.ShotCount;
 
 		Container.BindInstance(stats);
 	}
@@ -30,6 +32,8 @@ public class EntitySettings
 	public int Health;
 	public int Damage;
 	public int ShotSpeed;
+	public int ShotDirection;
+	public int ShotCount;
 	public Alliances Alliance;
 	public float InvincibilityFrameCoolDown;
 	public GameObject OnHitParticulePrefab;
