@@ -73,6 +73,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e9e6c42654b7745b11da41a73ddf1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settings: {fileID: 11400000, guid: d27d775187e303744b7c42bde9d56965, type: 2}
+  _settings: {fileID: 11400000, guid: 84f401eaf47914946825f1696318c8ee, type: 2}
   _sacrificeItemUIPrefab: {fileID: 4998256026328033873, guid: 524a671fce6d84c598f03627a2ff96ea,
     type: 3}

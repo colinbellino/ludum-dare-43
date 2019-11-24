@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using Zenject;
 
 public abstract class ExitCondition : MonoBehaviour
 {
 	public const string OnShowExitNotification = "ExitCondition.ShowExitNotification";
 
 	protected SacrificesManager _manager;
+	private bool _wasNotificationSent;
 
 	private void Awake()
 	{
@@ -14,9 +14,10 @@ public abstract class ExitCondition : MonoBehaviour
 
 	private void Update()
 	{
-		if (CheckForExitCondition)
+		if (CheckForExitCondition && _wasNotificationSent == false)
 		{
 			this.PostNotification(OnShowExitNotification);
+			_wasNotificationSent = true;
 		}
 	}
 

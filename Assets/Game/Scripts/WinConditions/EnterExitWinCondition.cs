@@ -1,10 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-
-public class ExitWinCondition : WinCondition
+public class EnterExitWinCondition : WinCondition
 {
 	private bool winStatus = false;
 
