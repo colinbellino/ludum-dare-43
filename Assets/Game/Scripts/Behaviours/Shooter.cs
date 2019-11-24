@@ -29,24 +29,23 @@ public class Shooter : MonoBehaviour
 	private void Update()
 	{
 		var fireInput = _inputState.Aim;
-		if (fireInput.magnitude > 0f)
-		{
-			_projectileOrigin.localPosition = fireInput * _projectileOriginDistance;
 
-			if (Time.time > _fireTimestamp)
-			{
-				var projectileSetting = new ProjectileSettings
-				{
-					InitialPositions = _projectileOrigin.position,
-					Direction = fireInput,
-					Stats = _stats,
-					Alliances = _alliances,
-				};
-				_fireTimestamp = Time.time + _stats[StatTypes.FireRate] / 10f;
-				_onFired.Invoke();
-				_projectileFactory.Create(projectileSetting);
-			}
-		}
+		if (!(fireInput.magnitude > 0f)) return;
+
+		_projectileOrigin.localPosition = fireInput * _projectileOriginDistance;
+
+		if (!(Time.time >= _fireTimestamp)) return;
+
+		var projectileSetting = new ProjectileSettings
+		{
+			InitialPositions = _projectileOrigin.position,
+			Direction = fireInput,
+			Stats = _stats,
+			Alliances = _alliances,
+		};
+		_fireTimestamp = Time.time + _stats[StatTypes.FireRate] / 10f;
+		_onFired.Invoke();
+		_projectileFactory.Create(projectileSetting);
 	}
 }
 

@@ -284,8 +284,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveTowardsPlayer: 0
-  _shootAtPlayer: 1
+  _shootAtPlayer: 0
   _moveDumblyAtPlayer: 0
+  _shootAtCardinalDirection: 1
 --- !u!114 &6159160726468998790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,7 +301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
     MoveSpeed: 5
-    FireRate: 20
+    FireRate: 0
     Health: 7
     Damage: 1
     ShotSpeed: 5
