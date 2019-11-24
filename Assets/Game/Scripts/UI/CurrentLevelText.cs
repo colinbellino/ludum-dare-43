@@ -24,5 +24,8 @@ public class CurrentLevelText : MonoBehaviour
 		_levelManager.OnLevelChanged -= OnLevelChanged;
 	}
 
-	private void OnLevelChanged(string levelName) => _text.text = levelName;
+	private void OnLevelChanged(string levelName)
+	{
+		_text.text = levelName == "Sacrifice" ? "To go deeper, you must sacrifice something." : levelName;
+	}
 }

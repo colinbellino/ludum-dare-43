@@ -3,13 +3,11 @@ using Zenject;
 
 public abstract class EnemySpawner : MonoBehaviour
 {
-	private GameManager gameManager;
 	private EnemyFacade.Factory enemyFactory;
 
 	[Inject]
-	public void Construct(GameManager gameManager, EnemyFacade.Factory enemyFactory)
+	public void Construct(EnemyFacade.Factory enemyFactory)
 	{
-		this.gameManager = gameManager;
 		this.enemyFactory = enemyFactory;
 	}
 

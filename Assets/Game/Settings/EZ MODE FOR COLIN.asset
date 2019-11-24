@@ -15,6 +15,11 @@ MonoBehaviour:
   levels:
   - {fileID: 4529677420840477419, guid: 418637ee077350640ba48cafd150dc42, type: 3}
   - {fileID: 7214309179630171751, guid: 6912836fbe315174f9a9345de1eed925, type: 3}
+  Levels:
+  - m_AssetGUID: d77d6232c1bf3424e8836d55b72d74db
+    m_SubObjectName: 
+  - m_AssetGUID: c69be7020a317984681cf8033e1e80c7
+    m_SubObjectName: 
   sacrifices:
   - {fileID: 11400000, guid: c34d63dba994f154c8d3e9d24f1d4522, type: 2}
   - {fileID: 11400000, guid: 4f37e794ed77dea489452f0079aa09b1, type: 2}

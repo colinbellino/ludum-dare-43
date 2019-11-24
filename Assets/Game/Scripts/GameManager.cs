@@ -43,17 +43,9 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
-		var isDebugMode = _spawnPoint == null;
-		if (isDebugMode)
-		{
-			Invoke("StartCombat", 0.1f);
-		}
-		else
-		{
-			Invoke("StartNextGameplayPhase", 0.1f);
-		}
-
 		this.AddObserver(SetNoUIMode, KnowledgeSacrifice.OnUiDisable);
+
+		StartNextPhase();
 	}
 
 	private void Update()
@@ -68,40 +60,7 @@ public class GameManager : MonoBehaviour
 	private void OnLevelChanged(string levelName)
 	{
 		_player.transform.position = _spawnPoint.position;
-	}
-
-	private void SetNoUIMode(object sender, object args)
-	{
-		IsNoUiMode = true;
-	}
-
-	private void OnWin(object sender, object args)
-	{
-		StartNextGameplayPhase();
-	}
-
-	private void OnShowExit(object sender, object args)
-	{
-		_exit.transform.position = _spawnPoint.position;
-		_exit.SetActive(true);
-	}
-
-	private void StartNextGameplayPhase()
-	{
-		if (_exit != null)
-		{
-			_exit.SetActive(false);
-		}
-
-		try
-		{
-			_levelManager.NextLevel();
-		}
-		catch
-		{
-			SceneManager.LoadScene("Finish");
-			return;
-		}
+		_isCombatPhase = levelName == "Sacrifice";
 
 		if (_isCombatPhase)
 		{
@@ -111,8 +70,39 @@ public class GameManager : MonoBehaviour
 		{
 			StartCombat();
 		}
+	}
 
-		_isCombatPhase = !_isCombatPhase;
+	private void SetNoUIMode(object sender, object args)
+	{
+		IsNoUiMode = true;
+	}
+
+	private void OnWin(object sender, object args)
+	{
+		StartNextPhase();
+	}
+
+	private void OnShowExit(object sender, object args)
+	{
+		_exit.transform.position = _spawnPoint.position;
+		_exit.SetActive(true);
+	}
+
+	private async void StartNextPhase()
+	{
+		if (_exit != null)
+		{
+			_exit.SetActive(false);
+		}
+
+		try
+		{
+			await _levelManager.NextLevel();
+		}
+		catch
+		{
+			SceneManager.LoadScene("Finish");
+		}
 	}
 
 	private void StartSacrifice()

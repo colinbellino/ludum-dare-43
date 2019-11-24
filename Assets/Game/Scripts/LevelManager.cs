@@ -1,24 +1,27 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using UnityEngine;
+using System.Threading.Tasks;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.ResourceProviders;
+using UnityEngine.SceneManagement;
 
 public class LevelManager
 {
-	private readonly List<GameObject> _levels;
+	private readonly List<AssetReference> _levels;
 	private int _currentLevelIndex;
-	private GameObject _loadedLevel;
+	private SceneInstance _loadedLevel;
 
 	public Action<string> OnLevelChanged = delegate { };
 
 	public LevelManager(GameSettings settings)
 	{
-		_levels = settings.levels;
+		_levels = settings.Levels;
 	}
 
-	public void NextLevel()
+	public async Task NextLevel()
 	{
-		DestroyCurrentLevel();
+		Addressables.UnloadSceneAsync(_loadedLevel);
 
 		if (_currentLevelIndex >= _levels.Count)
 		{
@@ -26,27 +29,12 @@ public class LevelManager
 		}
 
 		var nextlevel = _levels[_currentLevelIndex];
-		_loadedLevel = LoadLevel(nextlevel);
+		_loadedLevel = await Addressables.LoadSceneAsync(nextlevel, LoadSceneMode.Additive).Task;
 
-		var levelName = nextlevel.name == "SacrificeLevel" ? "To go deeper, you must sacrifice something." : nextlevel.name;
+		var levelName = _loadedLevel.Scene.name;
 		OnLevelChanged(levelName);
 
 		_currentLevelIndex++;
-	}
-
-	private static GameObject LoadLevel(GameObject level)
-	{
-		return UnityEngine.Object.Instantiate(level);
-	}
-
-	private void DestroyCurrentLevel()
-	{
-		if (_loadedLevel == null)
-		{
-			return;
-		}
-
-		UnityEngine.Object.Destroy(_loadedLevel);
 	}
 }
 
