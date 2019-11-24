@@ -39,87 +39,118 @@ public class Shooter : MonoBehaviour
 
 		if (!(fireInput.magnitude > 0f) || !(Time.time >= _fireTimestamp)) return;
 
-		var directions = GetShotDirections(_stats[StatTypes.ShotDirection]);
+		var shotAngles = GetShotAngles(_stats[StatTypes.ShotDirection]);
 
-		directions.ForEach((direction) =>
+		shotAngles.ForEach((shotAngle) =>
 		{
-			var projectileSettings = new ProjectileSettings
-			{
-				InitialPositions = transform.position,
-				Direction = direction,
-				Stats = _stats,
-				Alliances = _alliances,
-			};
+			var shotDirection = GetProjectileDirection(fireInput, shotAngle);
+			var projectilesAngles = GetProjectilesAngles(_stats[StatTypes.ShotCount]);
 
-			_projectileFactory.Create(projectileSettings);
+			projectilesAngles.ForEach(angle =>
+			{
+				var projectileDirection = GetProjectileDirection(shotDirection, angle);
+				var projectileSettings = new ProjectileSettings
+				{
+					InitialPositions = transform.position,
+					Direction = projectileDirection,
+					Stats = _stats,
+					Alliances = _alliances,
+				};
+				_projectileFactory.Create(projectileSettings);
+			});
 		});
 
 		_fireTimestamp = Time.time + _stats[StatTypes.FireRate] / 10f;
 		_onFired.Invoke();
 	}
 
-	private List<Vector2> GetShotDirections(int shotDirection)
+	private List<float> GetShotAngles(int shotDirection)
 	{
-		var shotDirectionList = new List<Vector2>();
-		var fireInput = _inputState.Aim;
-
-		/*
-		 * -90deg : shotDirectionList.Add(new Vector2 {x = -fireInput.y, y = fireInput.x});
-		 * +90deg : shotDirectionList.Add(new Vector2 {x = fireInput.y, y = -fireInput.x});
-		 * +-180deg : shotDirectionList.Add(-fireInput)
-		 */
+		var shotAngles = new List<float>();
 
 		switch (shotDirection)
 		{
 			case 6:
-				shotDirectionList.Add(new Vector2 {x = fireInput.y, y = -fireInput.x});
-				shotDirectionList.Add(new Vector2 {x = -fireInput.y, y = fireInput.x});
-				shotDirectionList.Add(fireInput);
-				shotDirectionList.Add(-fireInput);
+				shotAngles.Add(90);
+				shotAngles.Add(-90);
+				shotAngles.Add(0);
+				shotAngles.Add(180);
 				break;
 			case 5:
-				shotDirectionList.Add(new Vector2 {x = fireInput.y, y = -fireInput.x});
-				shotDirectionList.Add(new Vector2 {x = -fireInput.y, y = fireInput.x});
+				shotAngles.Add(90);
+				shotAngles.Add(-90);
 				break;
 			case 4:
-				shotDirectionList.Add(new Vector2 {x = fireInput.y, y = -fireInput.x});
+				shotAngles.Add(90);
 				break;
 			case 3:
-				shotDirectionList.Add(new Vector2 {x = -fireInput.y, y = fireInput.x});
+				shotAngles.Add(-90);
 				break;
 			case 2:
-				shotDirectionList.Add(fireInput);
-				shotDirectionList.Add(-fireInput);
+				shotAngles.Add(0);
+				shotAngles.Add(180);
 				break;
 			case 1:
-				shotDirectionList.Add(-fireInput);
+				shotAngles.Add(180);
 				break;
 			default:
-				shotDirectionList.Add(fireInput);
+				shotAngles.Add(0);
 				break;
 		}
 
-		return shotDirectionList;
+		return shotAngles;
 	}
 
-	private ShotDirectionSettings ConstructShotSettings(Vector2 input, Vector2 direction)
+	private List<float> GetProjectilesAngles(int shotCount)
 	{
-		return new ShotDirectionSettings
+		var _projectilesAngles = new List<float>();
+
+		switch (shotCount)
 		{
-			InitialPositions = input,
-			Direction = direction,
-		};
+			case 3:
+				_projectilesAngles.Add(40);
+				_projectilesAngles.Add(20);
+				_projectilesAngles.Add(0);
+				_projectilesAngles.Add(-20);
+				_projectilesAngles.Add(-40);
+				break;
+			case 2:
+				_projectilesAngles.Add(20);
+				_projectilesAngles.Add(0);
+				_projectilesAngles.Add(-20);
+				break;
+			case 1:
+				_projectilesAngles.Add(20);
+				_projectilesAngles.Add(-20);
+				break;
+			default:
+				_projectilesAngles.Add(0);
+				break;
+		}
+
+		return _projectilesAngles;
+	}
+
+	private static Vector2 GetProjectileDirection(Vector2 direction, float angle)
+	{
+		var _angle = angle * Mathf.Deg2Rad;
+		var x = direction.x;
+		var y = direction.y;
+		var cos = Mathf.Cos(_angle);
+		var sin = Mathf.Sin (_angle);
+
+		var x2 = x * cos - y * sin;
+		var y2 = x * sin + y * cos;
+
+		return new Vector2(x2, y2);
+
 	}
 }
 
-public class ShotDirectionSettings
-{
-	public Vector3 InitialPositions;
-	public Vector2 Direction;
-}
-
-public class ProjectileSettings: ShotDirectionSettings
+public class ProjectileSettings
 {
 	public Stats Stats;
 	public Alliances Alliances;
+	public Vector3 InitialPositions;
+	public Vector2 Direction;
 }
