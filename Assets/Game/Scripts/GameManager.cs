@@ -45,6 +45,12 @@ public class GameManager : MonoBehaviour
 	{
 		this.AddObserver(SetNoUIMode, KnowledgeSacrifice.OnUiDisable);
 
+		if (SceneManager.sceneCount > 1)
+		{
+			OnLevelChanged(SceneManager.GetSceneAt(1).name);
+			return;
+		}
+
 		StartNextPhase();
 	}
 
@@ -54,21 +60,6 @@ public class GameManager : MonoBehaviour
 		{
 			SceneManager.LoadScene("MainMenu");
 			return;
-		}
-	}
-
-	private void OnLevelChanged(string levelName)
-	{
-		_player.transform.position = _spawnPoint.position;
-		_isCombatPhase = levelName == "Sacrifice";
-
-		if (_isCombatPhase)
-		{
-			StartSacrifice();
-		}
-		else
-		{
-			StartCombat();
 		}
 	}
 
@@ -121,6 +112,21 @@ public class GameManager : MonoBehaviour
 		if (actor == _player)
 		{
 			SceneManager.LoadScene("GameOver");
+		}
+	}
+
+	private void OnLevelChanged(string levelName)
+	{
+		_player.transform.position = _spawnPoint.position;
+		_isCombatPhase = levelName == "Sacrifice";
+
+		if (_isCombatPhase)
+		{
+			StartSacrifice();
+		}
+		else
+		{
+			StartCombat();
 		}
 	}
 }
