@@ -21,8 +21,12 @@ MonoBehaviour:
     m_Address: Assets/Game/Scenes/Levels
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: c69be7020a317984681cf8033e1e80c7
-    m_Address: Assets/Game/Scenes/Levels/Sacrifice.unity
+  - m_GUID: d77d6232c1bf3424e8836d55b72d74db
+    m_Address: Assets/Game/Scenes/Levels/Legacy 1.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: dd7cb4a5025e64a4b87ed29f7e34bfff
+    m_Address: Assets/Game/Scenes/Levels/Dungeon 1.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
