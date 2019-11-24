@@ -284,9 +284,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveTowardsPlayer: 0
-  _shootAtPlayer: 0
+  _shootAtPlayer: 1
   _moveDumblyAtPlayer: 0
-  _shootAtCardinalDirection: 1
+  _shootAtCardinalDirection: 0
 --- !u!114 &6159160726468998790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,10 +301,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
     MoveSpeed: 5
-    FireRate: 0
+    FireRate: 2
     Health: 7
     Damage: 1
     ShotSpeed: 5
+    ShotDirection: 4
+    ShotCount: 0
     Alliance: 1
     InvincibilityFrameCoolDown: 0
     OnHitParticulePrefab: {fileID: 7127678448324640652, guid: 08703ad79f4ba4eea9a7113189d0c4ae,
