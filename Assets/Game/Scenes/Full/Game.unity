@@ -817,6 +817,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1002788668}
   m_CullTransparentMesh: 0
+--- !u!20 &1114639661 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3499917376804229996, guid: 54405920df2c32843bf4842c811d3fa7,
+    type: 3}
+  m_PrefabInstance: {fileID: 443115312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1571553624
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,8 +1325,8 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_Camera: {fileID: 1114639661}
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
