@@ -35,12 +35,12 @@ MonoBehaviour:
     m_SubObjectName: 
   - m_AssetGUID: 03be8b329e05e1f49a68594fc3aeb13c
     m_SubObjectName: 
-  sacrifices:
+  Sacrifices:
   - {fileID: 11400000, guid: c34d63dba994f154c8d3e9d24f1d4522, type: 2}
-  - {fileID: 11400000, guid: 4f37e794ed77dea489452f0079aa09b1, type: 2}
-  - {fileID: 11400000, guid: f5604e2584a22ba4c8c4fc9a2044ca90, type: 2}
   - {fileID: 11400000, guid: 84238ed8ad933fa49abf234c8134338b, type: 2}
   - {fileID: 11400000, guid: 593dd88f0cda67f45a94f2251cba83d4, type: 2}
+  - {fileID: 11400000, guid: 4f37e794ed77dea489452f0079aa09b1, type: 2}
+  - {fileID: 11400000, guid: f5604e2584a22ba4c8c4fc9a2044ca90, type: 2}
   enemyPrefabs:
   - {fileID: 8885532686460678695, guid: d5ba900222cd65b4886ab0eeb3e0b347, type: 3}
   - {fileID: 8885532686460678695, guid: d790fa2afa04c614eb449cca9de0015a, type: 3}
@@ -48,9 +48,9 @@ MonoBehaviour:
   projectilesPrefab: {fileID: 420144028746505800, guid: 8a04f396c93024f4bb5500a59ab8802f,
     type: 3}
   projectilesSprites:
-  - {fileID: -3381367241362126946, guid: ab8d5a91240514a0f92a9e31e963a066, type: 3}
-  - {fileID: 5136254182060154811, guid: e0cb5a7f2db0a4ce983691d81f0ae258, type: 3}
-  - {fileID: -7567238065667098972, guid: 97577ba410152492d8311a5348f9b7ce, type: 3}
+  - {fileID: -5806773807326504963, guid: 36c5b1b90c52942b98b6b8bd7313e868, type: 3}
+  - {fileID: 2555978149937880182, guid: d9b26e4e4561645288bb3ee5f7891c7f, type: 3}
+  - {fileID: -2536054131278470562, guid: 36e3250b56d3348429c11c1b23526587, type: 3}
   PlayerSettings:
     Wenk:
       Cooldown: 0.5

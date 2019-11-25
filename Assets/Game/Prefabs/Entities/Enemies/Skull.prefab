@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings:
-    MoveSpeed: 5
+    MoveSpeed: 0
     FireRate: 10
     Health: 2
     Damage: 1

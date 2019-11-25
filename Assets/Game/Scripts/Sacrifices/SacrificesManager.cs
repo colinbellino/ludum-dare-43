@@ -17,7 +17,7 @@ public class SacrificesManager : MonoBehaviour
 	[Inject]
 	public void Construct(GameSettings settings)
 	{
-		_availableSacrifices = settings.sacrifices;
+		_availableSacrifices = settings.Sacrifices.ToList();
 	}
 
 	private void OnEnable()

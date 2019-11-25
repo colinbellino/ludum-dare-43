@@ -7,7 +7,7 @@ using UnityEngine.AddressableAssets;
 public class GameSettings : ScriptableObject
 {
 	public List<AssetReference> Levels = new List<AssetReference>();
-	public List<SacrificeData> sacrifices = new List<SacrificeData>();
+	public List<SacrificeData> Sacrifices = new List<SacrificeData>();
 	public List<GameObject> enemyPrefabs = new List<GameObject>();
 	public ProjectileFacade projectilesPrefab;
 	public List<Sprite> projectilesSprites = new List<Sprite>();
