@@ -23,10 +23,12 @@ public class ProjectileAlliance : IInitializable
 
 	public void Initialize()
 	{
+		ColorUtility.TryParseHtmlString("#5b6ee1", out var color);
 		if (_alliances == Alliances.Enemy)
 		{
-			_spriteRenderer.color = new Color(255, 0, 0);
+			ColorUtility.TryParseHtmlString("#ac3131", out color);
 		}
+		_spriteRenderer.color = color;
 
 		switch (_damage)
 		{
