@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Pouet
@@ -25,27 +26,23 @@ namespace Pouet
 	public class InventorySystem
 	{
 		private readonly List < (FeatureData, IFeatureHandler) > _features = new List < (FeatureData, IFeatureHandler) > ();
+		private readonly int _capacity;
 
-		private readonly int _totalSpace;
-		private int _availableSpace;
-
-		public InventorySystem(int totalSpace)
+		public InventorySystem(int capacity)
 		{
-			_totalSpace = totalSpace;
-			_availableSpace = totalSpace;
+			_capacity = capacity;
 		}
 
 		public void AddFeature((FeatureData, IFeatureHandler) feature)
 		{
 			var(data, handler) = feature;
-			if (data.Cost > _availableSpace)
+			if (data.Cost > AvailableSpace)
 			{
 				throw new InsufficientCostException();
 			}
 
 			_features.Add((data, handler));
 			handler.Enable();
-			_availableSpace -= data.Cost;
 		}
 
 		public void RemoveFeature((FeatureData, IFeatureHandler) feature)
@@ -54,8 +51,14 @@ namespace Pouet
 
 			_features.Remove((data, handler));
 			handler.Disable();
-			_availableSpace += data.Cost;
 		}
+
+		private int AvailableSpace => _capacity - FeaturesCost;
+		private int FeaturesCost => _features
+			.Select(tupple => tupple.Item1.Cost)
+			.DefaultIfEmpty()
+			.Aggregate((a, b) => a + b);
+
 	}
 }
 
@@ -63,10 +66,7 @@ namespace Pouet
 public class InsufficientCostException : Exception
 {
 	public InsufficientCostException() { }
-
 	public InsufficientCostException(string message) : base(message) { }
-
 	public InsufficientCostException(string message, Exception innerException) : base(message, innerException) { }
-
 	protected InsufficientCostException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 }
