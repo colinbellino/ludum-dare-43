@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Normal Settings
   m_EditorClassIdentifier: 
   Levels:
-  - m_AssetGUID: dd7cb4a5025e64a4b87ed29f7e34bfff
+  - m_AssetGUID: d77d6232c1bf3424e8836d55b72d74db
     m_SubObjectName: 
   - m_AssetGUID: c69be7020a317984681cf8033e1e80c7
     m_SubObjectName: 
