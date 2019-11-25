@@ -12,13 +12,13 @@ public class Health : MonoBehaviour
 	public const string OnHitNotification = "Health.OnHitNotification";
 
 	private float _iFrameStart;
-	private Stats _stats;
+	private IStatsProvider _statsProvider;
 	private float _invulnerabilityFrameCoolDown;
 
 	[Inject]
-	public void Construct(Stats stats, EntitySettings settings)
+	public void Construct(IStatsProvider statsProvider, EntitySettings settings)
 	{
-		_stats = stats;
+		_statsProvider = statsProvider;
 		_invulnerabilityFrameCoolDown = settings.InvincibilityFrameCoolDown;
 	}
 
@@ -47,16 +47,15 @@ public class Health : MonoBehaviour
 
 	private void Damage(int damage)
 	{
-		if (!IsIFrame())
-		{
-			_stats[StatTypes.Health] -= damage;
+		if (IsIFrame()) return;
 
-			if (_stats[StatTypes.Health] <= 0)
-			{
-				onDeathEvent.Invoke();
-				this.PostNotification(OnDeathNotification);
-			}
-		}
+		var _currentHealth = _statsProvider.GetStat(StatTypes.Health);
+		_statsProvider.SetStat(StatTypes.Health, _currentHealth - damage);
+
+		if (_currentHealth - damage > 0) return;
+
+		onDeathEvent.Invoke();
+		this.PostNotification(OnDeathNotification);
 	}
 
 	public void SetMaxHealth(int value)

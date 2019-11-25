@@ -16,8 +16,8 @@ public class ProjectileFacade : MonoBehaviour
 	[Inject]
 	public void Construct(ProjectileSettings projectileSettings)
 	{
-		_damage = projectileSettings.Stats[StatTypes.Damage];
-		_shotSpeed = projectileSettings.Stats[StatTypes.ShotSpeed];
+		_damage = projectileSettings.StatsProvider.GetStat(StatTypes.Damage);
+		_shotSpeed = projectileSettings.StatsProvider.GetStat(StatTypes.ShotSpeed);
 		_direction = projectileSettings.Direction;
 		_alliances = projectileSettings.Alliances;
 	}

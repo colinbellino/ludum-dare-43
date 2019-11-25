@@ -5,11 +5,12 @@ public class DexteritySacrifice : MonoBehaviour, ISacrifice
 	public void OnApply()
 	{
 		// TODO: Inject the player instead ?
-		var stats = GameObject.Find("Player")?.GetComponent<IEntity>()?.Stats;
-		if (stats != null)
-		{
-			stats[StatTypes.FireRate] *= 2;
-		}
+		var statsProvider = GameObject.Find("Player")?.GetComponent<IStatsProvider>();
+
+		if (statsProvider == null) return;
+
+		var fireRate = statsProvider.GetStat(StatTypes.FireRate);
+		statsProvider.SetStat(StatTypes.FireRate, fireRate / 2);
 	}
 
 	public void OnRemove()

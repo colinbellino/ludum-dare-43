@@ -6,22 +6,22 @@ public class EnemyHealthBar : MonoBehaviour
 {
 	[SerializeField] private GameObject _healthBarForeground;
 
-	private Stats _stats;
+	private IStatsProvider _statsProvider;
 
 	[Inject]
-	public void Construct(Stats stats)
+	public void Construct(IStatsProvider statsProvider)
 	{
-		_stats = stats;
+		_statsProvider = statsProvider;
 	}
 
 	private void OnEnable()
 	{
-		this.AddObserver(OnHealthChange, Stats.DidChangeNotification(StatTypes.Health), _stats);
+		this.AddObserver(OnHealthChange, Stats.DidChangeNotification(StatTypes.Health));
 	}
 
 	private void OnDisable()
 	{
-		this.RemoveObserver(OnHealthChange, Stats.DidChangeNotification(StatTypes.Health), _stats);
+		this.RemoveObserver(OnHealthChange, Stats.DidChangeNotification(StatTypes.Health));
 	}
 
 	private void Start() => UpdateLifePercent();
@@ -36,5 +36,6 @@ public class EnemyHealthBar : MonoBehaviour
 		}
 	}
 
-	private float CalculateHealthPercent => (float) _stats[StatTypes.Health] / _stats[StatTypes.MaxHealth];
+	private float CalculateHealthPercent =>
+		(float) _statsProvider.GetStat(StatTypes.Health) / _statsProvider.GetStat(StatTypes.MaxHealth);
 }

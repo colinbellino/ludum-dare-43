@@ -5,11 +5,12 @@ public class SpeedSacrifice : MonoBehaviour, ISacrifice
 {
 	public void OnApply()
 	{
-		var stats = GameObject.Find("Player")?.GetComponent<PlayerFacade>()?.Stats;
-		if (stats != null)
-		{
-			stats[StatTypes.MoveSpeed] /= 2;
-		}
+		var statsProvider = GameObject.Find("Player")?.GetComponent<PlayerFacade>().StatsProvider;
+
+		if (statsProvider == null) return;
+
+		var moveSpeed = statsProvider.GetStat(StatTypes.MoveSpeed);
+		statsProvider.SetStat(StatTypes.MoveSpeed, moveSpeed / 2);
 	}
 
 	public void OnRemove()
