@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class EntityEffect: MonoBehaviour
+public class EntityEffect:  MonoBehaviour
 {
 	private GameObject _onHitParticulePrefab;
 	private GameObject _onDeathParticulePrefab;
@@ -14,19 +14,20 @@ public class EntityEffect: MonoBehaviour
 	}
 	private void OnEnable()
 	{
-		this.AddObserver(OnHit, Health.OnHitNotification);
+		this.AddObserver(OnHit, Health.OnHitNotification, gameObject);
 	}
 
 	private void OnDisable()
 	{
-		this.RemoveObserver(OnHit, Health.OnHitNotification);
+		this.RemoveObserver(OnHit, Health.OnHitNotification, gameObject);
 	}
 
 	private void OnHit(object sender, object args)
 	{
-		var isSelf = ((GameObject) sender).CompareTag(tag);
-
-		if (!_onHitParticulePrefab || !isSelf) return;
+		if (_onHitParticulePrefab == null)
+		{
+			return;
+		}
 
 		var instance = Instantiate(_onHitParticulePrefab);
 		instance.transform.position = transform.position;
