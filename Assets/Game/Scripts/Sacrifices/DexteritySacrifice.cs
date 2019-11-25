@@ -5,7 +5,7 @@ public class DexteritySacrifice : MonoBehaviour, ISacrifice
 	public void OnApply()
 	{
 		// TODO: Inject the player instead ?
-		var statsProvider = GameObject.Find("Player")?.GetComponent<IStatsProvider>();
+		var statsProvider = GameObject.Find("Player")?.GetComponent<PlayerFacade>().StatsProvider;
 
 		if (statsProvider == null) return;
 
