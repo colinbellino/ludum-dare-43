@@ -10,16 +10,16 @@ public class EnemyFacade : MonoBehaviour, INotifier, IEntity
 	private List<IBrainPart> _brain;
 
 	public Alliances Alliance { get; private set; }
-	public Stats Stats { get; private set; }
+	public IStatsProvider StatsProvider { get; private set; }
 
 	[Inject]
-	public void Construct(GameManager gameManager, List<IBrainPart> brain, EntitySettings settings, Stats stats)
+	public void Construct(GameManager gameManager, List<IBrainPart> brain, EntitySettings settings, IStatsProvider statsProvider)
 	{
 		_gameManager = gameManager;
 		_brain = brain;
 
 		Alliance = settings.Alliance;
-		Stats = stats;
+		StatsProvider = statsProvider;
 	}
 
 	private void OnEnable()

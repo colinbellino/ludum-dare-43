@@ -8,13 +8,13 @@ public class PlayerFacade : MonoBehaviour, ITarget, IEntity
 
 	public Transform Transform => transform;
 	public Alliances Alliance { get; private set; }
-	public Stats Stats { get; private set; }
+	public IStatsProvider StatsProvider { get; private set; }
 	public Animator Animator => _animator;
 
 	[Inject]
-	public void Construct(EntitySettings settings, Stats stats)
+	public void Construct(EntitySettings settings, IStatsProvider statsProvider)
 	{
 		Alliance = settings.Alliance;
-		Stats = stats;
+		StatsProvider = statsProvider;
 	}
 }

@@ -10,17 +10,9 @@ public class EntityInstaller : MonoInstaller
 	{
 		Container.BindInstance(_settings);
 
-		var stats = new Stats();
-		stats[StatTypes.MoveSpeed] = _settings.MoveSpeed;
-		stats[StatTypes.Health] = _settings.Health;
-		stats[StatTypes.MaxHealth] = _settings.Health;
-		stats[StatTypes.FireRate] = _settings.FireRate;
-		stats[StatTypes.Damage] = _settings.Damage;
-		stats[StatTypes.ShotSpeed] = _settings.ShotSpeed;
-		stats[StatTypes.ShotDirection] = _settings.ShotDirection;
-		stats[StatTypes.ShotCount] = _settings.ShotCount;
+		Container.Bind<IStatsProvider>().To<SettingsToStats>().AsSingle();
 
-		Container.BindInstance(stats);
+		Container.BindInstance(_settings).WhenInjectedInto<SettingsToStats>();
 	}
 }
 

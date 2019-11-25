@@ -7,13 +7,17 @@ public class HealthBarUI : MonoBehaviour
 	[SerializeField] private List<Image> images;
 	[SerializeField] private Sprite emptySprite;
 	[SerializeField] private Sprite fullSprite;
+	private IStatsProvider _statsProvider;
 
-	private Stats _stats;
 
 	private void Start()
 	{
-		_stats = GameObject.Find("Player")?.GetComponent<IEntity>()?.Stats;
+		var statProvider = GameObject.Find("Player")?.GetComponent<PlayerFacade>().StatsProvider;
 		UpdateHealthStatus();
+
+		if (statProvider == null) return;
+
+		_statsProvider = statProvider;
 	}
 
 	private void Update()
@@ -24,10 +28,15 @@ public class HealthBarUI : MonoBehaviour
 
 	public void UpdateHealthStatus()
 	{
+		if (_statsProvider == null) return;
+
+		var _health = _statsProvider.GetStat(StatTypes.Health);
+		var _maxHealth = _statsProvider.GetStat(StatTypes.MaxHealth);
+
 		for (int i = 0; i < images.Count; i++)
 		{
-			images[i].enabled = _stats[StatTypes.MaxHealth] > i;
-			images[i].sprite = _stats[StatTypes.Health] > i ? fullSprite : emptySprite;
+			images[i].enabled = _maxHealth > i;
+			images[i].sprite = _health > i ? fullSprite : emptySprite;
 		}
 	}
 }

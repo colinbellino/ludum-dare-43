@@ -223,7 +223,6 @@ MonoBehaviour:
   onStartup:
     m_PersistentCalls:
       m_Calls: []
-  invulnerabilityFrameCoolDown: 0.1
 --- !u!114 &8092949171340779860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,7 +249,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 9158105507830680505}
-  _animator: {fileID: 7920653697050326439}
 --- !u!114 &8617162696293536531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +312,7 @@ MonoBehaviour:
   _moveTowardsPlayer: 1
   _shootAtPlayer: 0
   _moveDumblyAtPlayer: 0
+  _shootAtCardinalDirection: 0
 --- !u!114 &7486695756699482522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,10 +328,15 @@ MonoBehaviour:
   _settings:
     MoveSpeed: 4
     FireRate: 0
-    Health: 1
+    Health: 3
     Damage: 1
     ShotSpeed: 2
+    ShotDirection: 0
+    ShotCount: 0
     Alliance: 1
+    InvincibilityFrameCoolDown: 0
+    OnHitParticulePrefab: {fileID: 0}
+    OnDeathParticulePrefab: {fileID: 0}
 --- !u!1001 &3155541367432920080
 PrefabInstance:
   m_ObjectHideFlags: 0

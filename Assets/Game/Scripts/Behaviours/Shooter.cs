@@ -18,19 +18,19 @@ public class Shooter : MonoBehaviour
 	public const string OnFireNotification = "Shooter.OnFireNotification";
 
 	private IInputState _inputState;
-	private Stats _stats;
 	private float _fireTimestamp;
 	private ProjectileFacade.Factory _projectileFactory;
 	private Alliances _alliances;
+	private IStatsProvider _statsProvider;
 
 	[Inject]
-	public void Construct(IInputState inputState, Stats stats, ProjectileFacade.Factory projectileFactory,
+	public void Construct(IInputState inputState, IStatsProvider statsProvider, ProjectileFacade.Factory projectileFactory,
 		EntitySettings settings)
 	{
 		_inputState = inputState;
-		_stats = stats;
 		_projectileFactory = projectileFactory;
 		_alliances = settings.Alliance;
+		_statsProvider = statsProvider;
 	}
 
 	private void Update()
@@ -39,12 +39,12 @@ public class Shooter : MonoBehaviour
 
 		if (!(fireInput.magnitude > 0f) || !(Time.time >= _fireTimestamp)) return;
 
-		var shotAngles = GetShotAngles(_stats[StatTypes.ShotDirection]);
+		var shotAngles = GetShotAngles(_statsProvider.GetStat(StatTypes.ShotDirection));
 
 		shotAngles.ForEach((shotAngle) =>
 		{
 			var shotDirection = GetProjectileDirection(fireInput, shotAngle);
-			var projectilesAngles = GetProjectilesAngles(_stats[StatTypes.ShotCount]);
+			var projectilesAngles = GetProjectilesAngles(_statsProvider.GetStat(StatTypes.ShotCount));
 
 			projectilesAngles.ForEach(angle =>
 			{
@@ -53,14 +53,14 @@ public class Shooter : MonoBehaviour
 				{
 					InitialPositions = transform.position,
 					Direction = projectileDirection,
-					Stats = _stats,
+					StatsProvider = _statsProvider,
 					Alliances = _alliances,
 				};
 				_projectileFactory.Create(projectileSettings);
 			});
 		});
 
-		_fireTimestamp = Time.time + _stats[StatTypes.FireRate] / 10f;
+		_fireTimestamp = Time.time + _statsProvider.GetStat(StatTypes.FireRate) / 10f;
 		_onFired.Invoke();
 	}
 
@@ -149,7 +149,7 @@ public class Shooter : MonoBehaviour
 
 public class ProjectileSettings
 {
-	public Stats Stats;
+	public IStatsProvider StatsProvider;
 	public Alliances Alliances;
 	public Vector3 InitialPositions;
 	public Vector2 Direction;

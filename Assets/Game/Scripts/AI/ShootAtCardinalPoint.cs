@@ -7,19 +7,20 @@ public class ShootAtCardinalPoint : IBrainPart
 	private readonly ITarget _target;
 	private string _cardinalDirection = "North";
 	private float _timestamp;
-	private float _fireCooldownRate;
+	private IStatsProvider _statsProvider;
 
-	public ShootAtCardinalPoint(IInputState inputState, Transform transform, ITarget target, Stats stats)
+	public ShootAtCardinalPoint(IInputState inputState, Transform transform, ITarget target, IStatsProvider statsProvider)
 	{
 		_inputState = inputState;
 		_transform = transform;
 		_target = target;
-		_fireCooldownRate = stats[StatTypes.FireRate] / 10f;
+		_statsProvider = statsProvider;
 	}
 
 	public void Tick()
 	{
 		_inputState.Aim = Vector2.zero;
+		var _fireCooldownRate = _statsProvider.GetStat(StatTypes.FireRate) / 10f;
 
 		if (!(Time.time >= _timestamp + _fireCooldownRate)) return;
 

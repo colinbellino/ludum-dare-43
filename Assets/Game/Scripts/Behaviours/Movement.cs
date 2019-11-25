@@ -8,15 +8,15 @@ public class Movement : MonoBehaviour
 
 	private Animator _animator;
 	private IInputState _inputState;
-	private Stats _stats;
 	private float _hitAnimationTime;
 	private float _invulnerabilityFrameCoolDown;
+	private IStatsProvider _statsProvider;
 
 	[Inject]
-	public void Construct(IInputState inputState, Stats stats, PlayerFacade playerFacade, EntitySettings settings)
+	public void Construct(IInputState inputState, IStatsProvider statsProvider, PlayerFacade playerFacade, EntitySettings settings)
 	{
 		_inputState = inputState;
-		_stats = stats;
+		_statsProvider = statsProvider;
 		_animator = playerFacade.Animator;
 		_invulnerabilityFrameCoolDown = settings.InvincibilityFrameCoolDown;
 		// Start a -_invulnerabilityFrameCoolDown to avoid trigger instantly
@@ -46,7 +46,7 @@ public class Movement : MonoBehaviour
 
 	private void UpdateVelocity(Vector2 moveInput)
 	{
-		_rb.velocity = moveInput * _stats[StatTypes.MoveSpeed];
+		_rb.velocity = moveInput * _statsProvider.GetStat(StatTypes.MoveSpeed);
 	}
 
 	private void UpdateAnimator(Vector2 moveInput)

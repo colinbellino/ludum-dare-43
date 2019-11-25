@@ -17,7 +17,7 @@ public class ProjectileAlliance : IInitializable
 	{
 		_sprites = settings.projectilesSprites;
 		_alliances = projectileSettings.Alliances;
-		_damage = projectileSettings.Stats[StatTypes.Damage];
+		_damage = projectileSettings.StatsProvider.GetStat(StatTypes.Damage);
 		_spriteRenderer = projectileFacade.SpriteRenderer;
 	}
 
