@@ -10,7 +10,7 @@ public class DexteritySacrifice : MonoBehaviour, ISacrifice
 		if (statsProvider == null) return;
 
 		var fireRate = statsProvider.GetStat(StatTypes.FireRate);
-		statsProvider.SetStat(StatTypes.FireRate, fireRate / 2);
+		statsProvider.SetStat(StatTypes.FireRate, fireRate * 2);
 	}
 
 	public void OnRemove()
