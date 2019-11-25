@@ -302,7 +302,7 @@ MonoBehaviour:
   _settings:
     MoveSpeed: 5
     FireRate: 10
-    Health: 7
+    Health: 2
     Damage: 1
     ShotSpeed: 5
     ShotDirection: 0
