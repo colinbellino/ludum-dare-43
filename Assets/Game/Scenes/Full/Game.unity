@@ -2166,16 +2166,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _settings.MoveSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _settings.FireRate
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd7ab19eb8b261e4593c21a9597d856c, type: 3}
 --- !u!114 &7827753750716817533

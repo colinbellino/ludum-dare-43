@@ -404,7 +404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
     MoveSpeed: 6
-    FireRate: 10
+    FireRate: 5
     Health: 3
     Damage: 1
     ShotSpeed: 15
