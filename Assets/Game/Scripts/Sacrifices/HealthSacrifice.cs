@@ -4,7 +4,7 @@ public class HealthSacrifice : MonoBehaviour, ISacrifice
 {
 	public void OnApply()
 	{
-		var statProvider = GameObject.Find("Player")?.GetComponent<IStatsProvider>();
+		var statProvider = GameObject.Find("Player")?.GetComponent<PlayerFacade>().StatsProvider;
 
 		if (statProvider == null) return;
 
@@ -12,7 +12,7 @@ public class HealthSacrifice : MonoBehaviour, ISacrifice
 		var maxHeath = statProvider.GetStat(StatTypes.MaxHealth);
 
 		statProvider.SetStat(StatTypes.Health, Mathf.Min(health, maxHeath - 2));
-		statProvider.SetStat(StatTypes.MaxHealth, maxHeath);
+		statProvider.SetStat(StatTypes.MaxHealth, maxHeath - 2);
 	}
 
 	public void OnRemove() { }
