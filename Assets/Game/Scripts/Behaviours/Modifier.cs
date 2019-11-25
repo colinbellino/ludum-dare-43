@@ -1,18 +1,23 @@
 using System.Collections.Generic;
 
-public abstract class Modifier
+// public abstract class Modifier
+// {
+// 	public readonly int SortOrder;
+
+// 	public Modifier(int sortOrder)
+// 	{
+// 		SortOrder = sortOrder;
+// 	}
+// }
+
+public abstract class ValueModifier
 {
 	public readonly int SortOrder;
 
-	public Modifier(int sortOrder)
+	public ValueModifier(int sortOrder)
 	{
 		SortOrder = sortOrder;
 	}
-}
-
-public abstract class ValueModifier : Modifier
-{
-	public ValueModifier(int sortOrder) : base(sortOrder) { }
 
 	public abstract float Modify(float fromValue, float toValue);
 }
@@ -44,6 +49,20 @@ public class MultiplyValueModifier : ValueModifier
 	public override float Modify(float fromValue, float toValue)
 	{
 		return toValue * ToMultiply;
+	}
+
+}
+
+public class BaseStatInfo
+{
+	private readonly int _baseStat;
+
+	public List<ValueModifier> Mods = new List<ValueModifier>();
+
+	public BaseStatInfo(int baseStat)
+	{
+		_baseStat = baseStat;
+		// Mods = mods;
 	}
 }
 

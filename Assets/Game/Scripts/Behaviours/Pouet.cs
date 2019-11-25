@@ -5,28 +5,16 @@ using System.Runtime.Serialization;
 
 namespace Pouet
 {
-	public interface IFeatureHandler
-	{
-		void Enable();
-		void Disable();
-	}
-
-	public class FeatureData
-	{
-		public string Name;
-		public int Cost;
-	}
-
-	public class HealthHandler : IFeatureHandler
-	{
-		public void Disable() { }
-		public void Enable() { }
-	}
-
 	public class InventorySystem
 	{
 		private readonly List < (FeatureData, IFeatureHandler) > _features = new List < (FeatureData, IFeatureHandler) > ();
 		private readonly int _capacity;
+
+		private int AvailableSpace => _capacity - FeaturesCost;
+		private int FeaturesCost => _features
+			.Select(tupple => tupple.Item1.Cost)
+			.DefaultIfEmpty()
+			.Aggregate((a, b) => a + b);
 
 		public InventorySystem(int capacity)
 		{
@@ -52,13 +40,43 @@ namespace Pouet
 			_features.Remove((data, handler));
 			handler.Disable();
 		}
+	}
 
-		private int AvailableSpace => _capacity - FeaturesCost;
-		private int FeaturesCost => _features
-			.Select(tupple => tupple.Item1.Cost)
-			.DefaultIfEmpty()
-			.Aggregate((a, b) => a + b);
+	public interface IFeatureHandler
+	{
+		void Enable();
+		void Disable();
+	}
 
+	public class FeatureData
+	{
+		public string Name;
+		public int Cost;
+	}
+
+	public class HealthHandler : IFeatureHandler
+	{
+		public void Disable() { }
+		public void Enable() { }
+	}
+
+	public class ModifersManager
+	{
+		public readonly List<ValueModifier> Mods = new List<ValueModifier>();
+
+		public float GetHealth()
+		{
+			var fromValue = 1f;
+			var value = fromValue;
+
+			var sortedMods = Mods.OrderBy(mod => mod.SortOrder);
+			foreach (var mod in sortedMods)
+			{
+				value = mod.Modify(fromValue, value);
+			}
+
+			return value;
+		}
 	}
 }
 
