@@ -11,7 +11,6 @@ public class SacrificesManager : MonoBehaviour
 	[SerializeField] private UnityEvent _onChooseSacrifice;
 
 	private List<SacrificeData> _availableSacrifices;
-	private List<SacrificeData> _selectableSacrifices;
 
 	public Action<SacrificeData> OnSacrificeActivated = delegate { };
 
@@ -38,12 +37,12 @@ public class SacrificesManager : MonoBehaviour
 
 	private void OnStartSacrificePhase(object sender, object args)
 	{
-		_selectableSacrifices = _availableSacrifices
+		var selectableSacrifices = _availableSacrifices
 			.Shuffle(new System.Random())
 			.Take(2)
 			.ToList();
 
-		ShowSelectableSacrifices();
+		ShowSelectableSacrifices(selectableSacrifices);
 	}
 
 	private void SetPedestalsVisibility(bool value)
@@ -54,11 +53,11 @@ public class SacrificesManager : MonoBehaviour
 		}
 	}
 
-	private void ShowSelectableSacrifices()
+	private void ShowSelectableSacrifices(List<SacrificeData> sacrifices)
 	{
-		for (int i = 0; i < _selectableSacrifices.Count; i++)
+		for (int i = 0; i < sacrifices.Count; i++)
 		{
-			var sacrifice = _selectableSacrifices[i];
+			var sacrifice = sacrifices[i];
 
 			var pedestal = _pedestals[i];
 			pedestal.gameObject.SetActive(true);
@@ -79,5 +78,6 @@ public class SacrificesManager : MonoBehaviour
 		_onChooseSacrifice.Invoke();
 
 		SetPedestalsVisibility(false);
+		_availableSacrifices.Remove(data);
 	}
 }
