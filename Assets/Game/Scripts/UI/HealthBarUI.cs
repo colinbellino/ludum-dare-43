@@ -31,11 +31,10 @@ public class HealthBarUI : MonoBehaviour
 		if (_statsProvider == null) return;
 
 		var _health = _statsProvider.GetStat(StatTypes.Health);
-		var _maxHealth = _statsProvider.GetStat(StatTypes.MaxHealth);
 
 		for (int i = 0; i < images.Count; i++)
 		{
-			images[i].enabled = _maxHealth > i;
+			images[i].enabled = _health > i;
 			images[i].sprite = _health > i ? fullSprite : emptySprite;
 		}
 	}
