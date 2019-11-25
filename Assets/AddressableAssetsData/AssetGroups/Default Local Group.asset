@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_Data:
     m_SerializedData: []
-  m_GUID: c09b14ae82660d349b03432837dba2b6
+  m_GUID: 0f79120e1b8df4a47a7429142768d3bf
   m_SerializeEntries:
   - m_GUID: 9fe031b6f32e3bc43bb155539588ef9b
     m_Address: Assets/Game/Scenes/Levels
@@ -25,5 +25,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 16adc1610cfd4824ab1878ae6091be76, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: b92b19549e5140541b543e47215e7855, type: 2}
-    - {fileID: 11400000, guid: f955f6eb55ca471438c7c3a7ffd40091, type: 2}
+    - {fileID: 11400000, guid: 44764192d0f3f1e40b851990903737f5, type: 2}
+    - {fileID: 11400000, guid: 200bcfc947c31c54dba0df799ef3b437, type: 2}
