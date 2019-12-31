@@ -4,8 +4,11 @@ Wenk! Is a really short game (1 minute if you know what you are doing) about a p
 
 And here you might think, but what is this "wenk" i just read about, and here is your [answer](https://www.reddit.com/r/adventuretime/comments/23yan5/how_do_you_spell_the_noise_that_gunter_makes/).
 
+## Links
+
+- Store page (it's free): https://cbellino.itch.io/wenk
 - Download links (all builds): https://drive.google.com/drive/folders/1yr-t-pMfxMumgbk9VGryHKWe7lqp_i4L?usp=sharing!
-- Source code: https://github.com/cbellino/ludum-dare-43 (some of the code is really bad and should not be considered best practice, at all!)
+- Source code: https://github.com/cbellino/ludum-dare-43 (it's here)
 
 ## Controls
 
@@ -27,8 +30,8 @@ Romain: First jam ever x first time on Unity = So much FUN ! For a first time it
 
 ## Screenshots
 
-![ScreenCapture at Tue Dec 4 13:59:42 CET 2018.png](///raw/2b6/2/z/1eae6.png)
-![ScreenCapture at Tue Dec 4 13:59:26 CET 2018.png](///raw/2b6/2/z/1eae7.png)
+![ScreenCapture1](https://img.itch.zone/aW1hZ2UvMzQwMzg3LzI3MTk2NDMucG5n/794x1000/qKz6V8.png)
+![ScreenCapture2](https://img.itch.zone/aW1hZ2UvMzQwMzg3LzI3MTk2NDQucG5n/794x1000/Gy898U.png)
 
 ## Credits
 
