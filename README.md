@@ -6,9 +6,9 @@ And here you might think, but what is this "wenk" i just read about, and here is
 
 ## Links
 
-- Store page (it's free): https://cbellino.itch.io/wenk
+- Store page (it's free): https://colinbellino.itch.io/wenk
 - Download links (all builds): https://drive.google.com/drive/folders/1yr-t-pMfxMumgbk9VGryHKWe7lqp_i4L?usp=sharing!
-- Source code: https://github.com/cbellino/ludum-dare-43 (it's here)
+- Source code: https://github.com/colinbellino/ludum-dare-43 (it's here)
 
 ## Controls
 
