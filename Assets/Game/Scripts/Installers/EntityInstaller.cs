@@ -27,7 +27,10 @@ public class EntitySettings
 	public int ShotDirection;
 	public int ShotCount;
 	public Alliances Alliance;
+
 	public float InvincibilityFrameCoolDown;
+	public Material HitMaterial;
 	public GameObject OnHitParticulePrefab;
+
 	public GameObject OnDeathParticulePrefab;
 }

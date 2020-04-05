@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2822382466616293122}
   - component: {fileID: 8325567493031700551}
   - component: {fileID: 3690120190048690759}
+  - component: {fileID: 428031444}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -102,6 +103,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &428031444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3995331857166551594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00dc5f9d7bf0f55409f3e4aec66ee5d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7712446667477971421
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 3690120190048690759}
+  _renderer: {fileID: 8325567493031700551}
 --- !u!114 &8329127435378289129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,6 +426,7 @@ MonoBehaviour:
     ShotCount: 0
     Alliance: 0
     InvincibilityFrameCoolDown: 0.5
+    HitMaterial: {fileID: 2100000, guid: 424a6e69ede758c4085fcaecd3070ee9, type: 2}
     OnHitParticulePrefab: {fileID: 8334952038618752020, guid: 0e15f859111464ca1b2348d8b9b668f6,
       type: 3}
     OnDeathParticulePrefab: {fileID: 0}
