@@ -285,30 +285,6 @@ AudioSource:
     type: 3}
   m_PrefabInstance: {fileID: 5053628090190676519}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &428031440 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3995331857166551594, guid: cd7ab19eb8b261e4593c21a9597d856c,
-    type: 3}
-  m_PrefabInstance: {fileID: 7712446667376663048}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &428031442 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 8325567493031700551, guid: cd7ab19eb8b261e4593c21a9597d856c,
-    type: 3}
-  m_PrefabInstance: {fileID: 7712446667376663048}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &428031444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 428031440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00dc5f9d7bf0f55409f3e4aec66ee5d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &443115312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2195,26 +2171,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _settings.Damage
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _settings.InvincibilityFrameCoolDown
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _settings.HitMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 424a6e69ede758c4085fcaecd3070ee9, type: 2}
-    - target: {fileID: 9003069737278429286, guid: cd7ab19eb8b261e4593c21a9597d856c,
-        type: 3}
-      propertyPath: _renderer
-      value: 
-      objectReference: {fileID: 428031442}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd7ab19eb8b261e4593c21a9597d856c, type: 3}
 --- !u!114 &7827753750716817533
