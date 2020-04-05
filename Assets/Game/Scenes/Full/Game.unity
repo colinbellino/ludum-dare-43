@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 11
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -98,8 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: dce1483bc312dba4d8b6f05a281ae7c1,
-    type: 2}
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -286,6 +285,24 @@ AudioSource:
     type: 3}
   m_PrefabInstance: {fileID: 5053628090190676519}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &428031440 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3995331857166551594, guid: cd7ab19eb8b261e4593c21a9597d856c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7712446667376663048}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &428031444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428031440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00dc5f9d7bf0f55409f3e4aec66ee5d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &443115312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2176,6 +2193,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _settings.Damage
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329127435378289129, guid: cd7ab19eb8b261e4593c21a9597d856c,
+        type: 3}
+      propertyPath: _settings.InvincibilityFrameCoolDown
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd7ab19eb8b261e4593c21a9597d856c, type: 3}

@@ -4,12 +4,12 @@ using Zenject;
 
 public class Movement : MonoBehaviour
 {
-	[SerializeField][FormerlySerializedAs("rb")] private Rigidbody2D _rb;
+	[SerializeField] [FormerlySerializedAs("rb")] private Rigidbody2D _rb;
 
 	private Animator _animator;
 	private IInputState _inputState;
 	private float _hitAnimationTime;
-	private float _invulnerabilityFrameCoolDown;
+	private float _iFrameDuration;
 	private IStatsProvider _statsProvider;
 
 	[Inject]
@@ -18,9 +18,7 @@ public class Movement : MonoBehaviour
 		_inputState = inputState;
 		_statsProvider = statsProvider;
 		_animator = playerFacade.Animator;
-		_invulnerabilityFrameCoolDown = settings.InvincibilityFrameCoolDown;
-		// Start a -_invulnerabilityFrameCoolDown to avoid trigger instantly
-		_hitAnimationTime = -_invulnerabilityFrameCoolDown;
+		_iFrameDuration = settings.InvincibilityFrameCoolDown;
 	}
 
 	private void OnEnable()
@@ -35,55 +33,44 @@ public class Movement : MonoBehaviour
 
 	private void Update()
 	{
-		var moveInput = _inputState.Move;
-		UpdateVelocity(moveInput);
+		UpdateVelocity();
 
 		if (_animator)
 		{
-			UpdateAnimator(moveInput);
+			UpdateAnimator();
 		}
 	}
 
-	private void UpdateVelocity(Vector2 moveInput)
+	private void UpdateVelocity()
 	{
-		_rb.velocity = moveInput * _statsProvider.GetStat(StatTypes.MoveSpeed);
+		_rb.velocity = _inputState.Move * _statsProvider.GetStat(StatTypes.MoveSpeed);
 	}
 
-	private void UpdateAnimator(Vector2 moveInput)
+	private void UpdateAnimator()
 	{
-		if (_hitAnimationTime + _invulnerabilityFrameCoolDown > Time.time )
+		if (_rb.velocity.magnitude > 0f)
 		{
-			_animator.Play("Hit");
-		}
-		else if (moveInput.magnitude > 0f)
-		{
-			_animator.Play("Walk");
+			_animator.SetTrigger("MoveStarted");
 		}
 		else
 		{
-			_animator.Play("Idle");
+			_animator.SetTrigger("MoveStopped");
 		}
 
-		if (moveInput.x != 0)
+		if (_rb.velocity.magnitude > 0f)
 		{
-			_animator.SetFloat("MoveX", moveInput.x);
-			_animator.SetFloat("MoveY", 0f);
-		}
-
-		if (moveInput.y != 0)
-		{
-			_animator.SetFloat("MoveX", 0f);
-			_animator.SetFloat("MoveY", moveInput.y);
+			_animator.SetFloat("MoveX", _rb.velocity.x);
+			_animator.SetFloat("MoveY", _rb.velocity.y);
 		}
 	}
 
 	private void OnHit(object sender, object arg)
 	{
-		var isPlayer = ((GameObject) sender).CompareTag("Player");
-
-		if (isPlayer)
+		if (Time.time > _hitAnimationTime)
 		{
-			_hitAnimationTime = Time.time;
+			_animator.SetTrigger("Hit");
+			_animator.SetFloat("IFrameDuration", 1f / _iFrameDuration);
+			_hitAnimationTime = Time.time + _iFrameDuration;
 		}
 	}
 }
