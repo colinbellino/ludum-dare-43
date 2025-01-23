@@ -1,4 +1,4 @@
-![wenk-banner-large.png](https://static.jam.vg/raw/2b6/2/z/1d950.png)
+![wenk-banner.png]([https://static.jam.vg/raw/2b6/2/z/1d950.png](https://github.com/user-attachments/assets/b00f50c7-c7b0-4f42-a8e1-020197142ab1))
 
 Wenk! Is a really short game (1 minute if you know what you are doing) about a penguin exploring a dungeon and rethinking his life choices while sacrificing things he needs to survive.
 
